@@ -1,1 +1,30 @@
-<h1>Hail to the thief</h1>
+<h1>Chestionar auto cu toate interbarile</h1>
+
+<hr>
+
+<div class="alert" ng-show="model.alert" ng-class="{true: 'alert-success', false: 'alert-danger'}[model.valid]">
+  <p ng-show="model.valid">Raspuns corect.</p>
+  <p ng-hide="model.valid">Pula raspuns corect.</p>
+</div>
+
+<h2>{{model.question.q}}</h2>
+<img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
+
+<div class="answeres">
+  <ol>
+    <li ng-click="SetAnswer('a')">{{model.question.a}}</li>
+    <li ng-click="SetAnswer('b')">{{model.question.b}}</li>
+    <li ng-click="SetAnswer('c')">{{model.question.c}}</li>
+  </ol>
+</div>
+
+<div class="set-answeres">
+  <a class="btn btn-default" ng-click="SetAnswer('a')" ng-class="{'btn-primary':model.answers.a}">A</a>
+  <a class="btn btn-default" ng-click="SetAnswer('b')" ng-class="{'btn-primary':model.answers.b}">B</a>
+  <a class="btn btn-default" ng-click="SetAnswer('c')" ng-class="{'btn-primary':model.answers.c}">C</a>
+</div>
+
+<div class="buttons">
+  <a class="btn btn-default" href="" ng-click="NextQuestion()">Raspund mai tarziu</a>
+  <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
+</div>
