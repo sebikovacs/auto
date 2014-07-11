@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+    Adsavvy &#8212;
+    {{#if title}}
+      {{ title }}
+    {{else}}
+      Homepage
+    {{/if}}
+  </title>
+  <meta name="description" content="">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
+
+  <!-- build:css({.tmp,app}) /styles/website.css -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-select/bootstrap-select.css">
+  <link rel="stylesheet" href="/styles/website.css">
+  <!-- endbuild -->
+  
+  <style>
+    /* Hack to fix number precission issue, until node-sass supports it
+    * number precision should be 10
+    */
+  body,
+  .btn {
+    line-height: 1.42857143 !important;
+  }
+  </style>
+  
+<!--   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+  
+</head>
+<body>
+
+  <!--[if lt IE 9]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  {{> body }}
+
+  <!-- build:js(app) /scripts/plugins.js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-route/angular-route.js"></script>
+  <script src="/bower_components/angular-touch/angular-touch.js"></script>
+  
+  <script src="/bower_components/momentjs/moment.js"></script>
+  
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/button.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/carousel.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/transition.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tooltip.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/popover.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/modal.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
+  <script src="/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
+  
+  <script src="/bower_components/bootstrap-select/bootstrap-select.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) /scripts/website.js -->
+  <script src="/scripts/website.js"></script>
+  <!-- endbuild -->
+  
+  <script>
+  
+  (function(){
+
+    $('.bs-component [data-toggle="popover"]').popover();
+    $('.bs-component [data-toggle="tooltip"]').tooltip();
+    
+    // bootstrap-select
+    $('.selectpicker').selectpicker({
+    });
+
+  })();
+  
+  </script>
+
+</body>
+</html>

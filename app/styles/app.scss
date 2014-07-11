@@ -1,0 +1,177 @@
+/* Adsavvy app
+ */
+
+/* Bourbon
+ */
+@import "../bower_components/bourbon/dist/bourbon";
+
+/* Globals
+ */
+$color1: #2854a1;
+$color2: lighten(saturate($color1, 40%), 20%);
+
+/* Utils
+ */
+@import "utils";
+
+/* Bootstrap Theme
+ */
+@import "theme";
+
+$blackColor: #2c3e50;
+$orangeColor: #e05430;
+
+
+html {
+  height: 100%;
+  body {
+    height: 100%
+  }
+}
+.step {
+  @include linear-gradient(#dadee0, #ffffff);
+  
+  height: 100%;
+  padding: 1px;
+  min-height: 100%;
+  text-align: center;
+  color: $blackColor;
+
+  h1 {
+    font-size: 46px;
+    margin: 73px 0 150px 0;
+    letter-spacing: -1px;
+  }
+}
+
+.step1 {
+  .cta {
+    position: relative;
+    text-align: left;
+    width: 279px;
+    padding: 8px 19px;
+
+    span {
+      display: block;
+      background: url('../images/chrome-logo.png') 0 0 no-repeat;
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      top: -18px;
+      right: 16px;
+    }
+  }
+}
+
+.step2 {
+  h1 {
+    margin: 73px 0 77px 0;
+  }
+  form.form-inline {
+    margin: 0 0 41px 0;
+    .form-group {
+      margin-right: 10px;
+    }
+    input {
+      width: 320px;
+    }
+    button {
+      text-transform: uppercase;
+      width: 90px;
+    }
+  }
+  .note {
+    text-align: left;
+    width: 420px;
+    margin: 0 auto;
+    font-size: 13px;
+
+    strong {
+      font-style: italic;
+    }
+    p{
+      letter-spacing: -0.9px;
+    }
+  }
+}
+
+.step3 {
+  iframe.iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+  }
+}
+
+.main-content {
+  position: relative;
+  width: 1024px;
+  margin: 0 auto;
+  padding-top: 1px;
+}
+.start-here {
+  position: absolute;
+  display: block;
+  width: 103px;
+  height: 68px;
+  background: url('../images/start-here.png') 0 0 no-repeat;
+  top: 202px;
+  left: 324px;
+}
+
+.progress-steps {
+  background: #fff;
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  text-align: left;
+  width: 400px;
+  height: 40px;
+  left: 50%;
+  margin-left: -200px;
+  box-shadow: rgba(0,0,0, .4) 0px 0px 5px;
+
+  strong {
+    text-transform: uppercase;
+    color: #7f8c8d;
+    font-size: 11px;
+    width: 70px;
+    display: block;
+    padding: 4px 0 0 8px;
+    letter-spacing: -1px;
+    float: left;
+  }
+
+  ul.steps {
+    padding: 8px 0 0 2px;
+    float: left;
+    
+    li {
+      float: left;
+      width: 24px;
+      height: 24px;
+      background: #bdc3c7;
+      color: #fff;
+      font-size: 11px;
+      text-align: center;
+      line-height: 24px;
+      border-radius: 24px;
+      margin-right: 8px;
+
+      &.active {
+        background: $orangeColor;
+      }
+      &.done {
+        background: #34495e url('../images/checked.png') 50% 50% no-repeat;
+        text-indent: -10000px;
+      }
+    }
+  }
+  .btn {
+    float: right;
+    width: 82px;
+    margin: 5px 9px 0 0;
+    padding: 4px 12px;
+  }
+}
