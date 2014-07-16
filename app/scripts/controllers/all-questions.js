@@ -13,10 +13,12 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.alert = false;
-  model.current = 0;
+  
   model.questions = {
     correct: [],
-    incorrect: []
+    incorrect: [],
+    starred: [],
+    current: 0
   };
 
 
@@ -24,14 +26,16 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     
     if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
       model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
-      model.question = model.questions.all[model.current];
+      model.question = model.questions.all[model.questions.current];
+
+      console.log(model.questions);
 
     } else {
 
       data.GetQuestions({}).then(function (res) {
         
         model.questions.all = res;
-        model.question = model.questions.all[model.current];
+        model.question = model.questions.all[model.questions.current];
 
         //Store questions to localStorage
         $scope.StoreData();
@@ -118,8 +122,20 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   $scope.NextQuestion = function () {
 
-    model.current = model.current + 1;
-    model.question = model.questions.all[model.current];
+    model.questions.current = model.questions.current + 1;
+    model.question = model.questions.all[model.questions.current];
+
+    $scope.StoreData();
+
+    $scope.ResetAnsweres();
+  };
+
+  $scope.PrevQuestion = function () {
+
+    model.questions.current = model.questions.current - 1;
+    model.question = model.questions.all[model.questions.current];
+
+    $scope.StoreData();
 
     $scope.ResetAnsweres();
   };
