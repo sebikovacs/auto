@@ -28,3 +28,9 @@ html {
     height: 100%
   }
 }
+
+.answers {
+  li.selected {
+    background: rgb(228, 253, 228);
+  }
+}

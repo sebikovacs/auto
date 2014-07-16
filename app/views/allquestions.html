@@ -1,3 +1,10 @@
+<div class="statistics">
+  <p>Numar de intrebari in total: <span class="label label-default">{{model.questions.length}}</span></p>
+  <p>Numar de intrebari parcurse: <span class="label label-default">{{model.current}}</span></p>
+  <p>Numar de intrebari ramase: <span class="label label-default">{{model.questions.length - model.current}}</span></p>
+  
+</div>
+
 <h1>Chestionar auto cu toate interbarile</h1>
 
 <hr>
@@ -10,11 +17,11 @@
 <h2>{{model.question.q}}</h2>
 <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
 
-<div class="answeres">
-  <ol>
-    <li ng-click="SetAnswer('a')">{{model.question.a}}</li>
-    <li ng-click="SetAnswer('b')">{{model.question.b}}</li>
-    <li ng-click="SetAnswer('c')">{{model.question.c}}</li>
+<div>
+  <ol class="answers">
+    <li ng-click="SetAnswer('a')" ng-class="{'selected':model.answers.a}">{{model.question.a}}</li>
+    <li ng-click="SetAnswer('b')" ng-class="{'selected':model.answers.b}">{{model.question.b}}</li>
+    <li ng-click="SetAnswer('c')" ng-class="{'selected':model.answers.c}">{{model.question.c}}</li>
   </ol>
 </div>
 
@@ -25,6 +32,6 @@
 </div>
 
 <div class="buttons">
-  <a class="btn btn-default" href="" ng-click="NextQuestion()">Raspund mai tarziu</a>
+  <a class="btn btn-default" href="" ng-click="NextQuestion()">Intrebarea urmatoare</a>
   <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
 </div>
