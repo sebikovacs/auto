@@ -30,6 +30,8 @@ html {
 }
 
 .answers {
+  list-style-type: none;
+  
   li.selected {
     background: rgb(228, 253, 228);
   }
@@ -38,5 +40,9 @@ html {
 h2.question {
   span.fa {
     color: rgb(231, 221, 99);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

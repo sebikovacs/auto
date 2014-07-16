@@ -1,42 +1,40 @@
-<div class="container">
+
   <h1>Chestionar auto cu toate interbarile</h1>
 
   <div class="row">
     <div class="col-lg-2">
       <table class="table">
         <tr>
-          <td>Total:</td>
+          <td>Toate:</td>
           <td><span class="label label-default">{{model.questions.all.length}}</span></td>
         </tr>
         <tr>
           <td>Parcurse:</td>
-          <td><span class="label label-default">{{model.questions.current}}</span></td>
+          <td><span class="label label-default">{{model.current}}</span></td>
         </tr>
         <tr>
-          <td>Ramase:</td>
-          <td><span class="label label-default">{{model.questions.all.length - model.questions.current}}</span></td>
+          <td>Neparcurse:</td>
+          <td><span class="label label-default">{{model.questions.all.length - model.current}}</span></td>
         </tr>
       </table>
     </div>
     <div class="col-lg-2">
       <table class="table">
         <tr>
-          <td>Corecte:</td>
+          <td><a href="#/intrebari-raspuns-corect">Corecte</a>:</td>
           <td><span class="label label-success">{{model.questions.correct.length}}</span></td>
         </tr>
         <tr>
-          <td>Incorecte:</td>
+          <td><a href="#/intrebari-raspuns-gresit">Incorecte</a>:</td>
           <td><span class="label label-danger">{{model.questions.incorrect.length}}</span></td>
         </tr>
         <tr>
-          <td>Starred:</td>
+          <td><a href="#/intrebari-marcate">Marcate</a>:</td>
           <td><span class="label label-warning">{{model.questions.starred.length}}</span></td>
         </tr>
       </table>
     </div>
   </div>
-
-  
 
   <hr>
 
@@ -45,16 +43,19 @@
     <p ng-hide="model.valid">Raspuns gresit.</p>
   </div>
 
-  <h2 class="question">#{{model.questions.current}}. {{model.question.q}} 
-    <span class="fa fa-star-o" ng-class="{'fa-star': hover, 'fa-star-o': !hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"></span>
+  <h2 class="question">#{{model.current}}. {{model.question.q}} 
+    <span 
+      class="fa fa-star-o" 
+      ng-click="StarQuestion()" 
+      ng-class="{'fa-star': model.starred, 'fa-star-o': !model.starred,}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"></span>
   </h2>
   <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
 
   <div>
     <ol class="answers">
-      <li ng-click="SetAnswer('a')" ng-class="{'selected':model.answers.a}">{{model.question.a}}</li>
-      <li ng-click="SetAnswer('b')" ng-class="{'selected':model.answers.b}">{{model.question.b}}</li>
-      <li ng-click="SetAnswer('c')" ng-class="{'selected':model.answers.c}">{{model.question.c}}</li>
+      <li ng-click="SetAnswer('a')" ng-class="{'selected':model.answers.a}">A. {{model.question.a}}</li>
+      <li ng-click="SetAnswer('b')" ng-class="{'selected':model.answers.b}">B. {{model.question.b}}</li>
+      <li ng-click="SetAnswer('c')" ng-class="{'selected':model.answers.c}">C. {{model.question.c}}</li>
     </ol>
   </div>
   
@@ -65,9 +66,12 @@
   </div>
   
   <div class="buttons">
-    <a class="btn btn-default" href="" ng-click="PrevQuestion()" ng-show="model.questions.current > 0">Intrebarea anterioara</a>
+    <a class="btn btn-default" href="" ng-click="PrevQuestion()" ng-show="model.current > 1">
+      <span class="fa-chevron-left fa"></span>
+    </a>
     <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
-    <a class="btn btn-default" href="" ng-click="NextQuestion()">Intrebarea urmatoare</a>
+    <a class="btn btn-default" href="" ng-click="NextQuestion()">
+      <span class="fa-chevron-right fa"></span>
+    </a>
   </div>
   
-</div>

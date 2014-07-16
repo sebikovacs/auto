@@ -13,29 +13,88 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.alert = false;
+  model.current = parseInt($routeParams.id, 10);
   
   model.questions = {
     correct: [],
     incorrect: [],
-    starred: [],
-    current: 0
+    starred: []
   };
 
+  model.starred = false;
+
+  // Helper method
+  var findObjectsInArray = function (arr, obj, index) {
+    var flag = false;
+    var i;
+    
+    for ( i = 0; i < arr.length; i++) {
+      if (arr[i].id === obj.id) {
+        
+        flag = true;
+        break;
+
+      }
+    }
+
+    if(index) {
+      return i;
+    } else {
+      return flag;  
+    }
+  };
+
+  var findObjectById = function (index) {
+    var obj;
+    
+    angular.forEach(model.questions.all, function (question) {
+      if (question.id === index) {
+        obj = question;
+      } 
+    });
+
+    return obj;
+  };
+
+  var findNextId = function (id) {
+    var nextId = null;
+    
+    for (var i = 0; i < model.questions.all.length; i++) {
+      if (model.questions.all[i].id == id) {
+        nextId = model.questions.all[i+1].id;
+        break;
+      }
+    }
+
+    return nextId;
+  };
+
+  var findPrevId = function (id) {
+    var nextId = null;
+    
+    for (var i = 0; i < model.questions.all.length; i++) {
+      if (model.questions.all[i].id == id) {
+        nextId = model.questions.all[i-1].id;
+        break;
+      }
+    }
+
+    return nextId;
+  };
 
   model.initQuestionsModel = function () {
     
     if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
-      model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
-      model.question = model.questions.all[model.questions.current];
 
-      console.log(model.questions);
+      model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
+      model.question = findObjectById(model.current);
 
     } else {
 
       data.GetQuestions({}).then(function (res) {
         
         model.questions.all = res;
-        model.question = model.questions.all[model.questions.current];
+        model.question = findObjectById(model.current);
 
         //Store questions to localStorage
         $scope.StoreData();
@@ -48,6 +107,20 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.initQuestionsModel();
+
+  $scope.StarQuestion = function () {
+
+    model.starred = !model.starred;
+
+    if (!findObjectsInArray(model.questions.starred, model.question)) {
+      model.questions.starred.push(model.question);
+    } else {
+      model.questions.starred.splice(findObjectsInArray(model.questions.starred, model.question, true), 1);
+    }
+
+    $scope.StoreData();
+
+  };
 
   $scope.StoreData = function () {
     
@@ -63,20 +136,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   };
 
-  var findObjectsInArray = function (arr, obj) {
-    var flag = false;
-    
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i].id === obj.id) {
-        
-        flag = true;
-        break;
-
-      }
-    }
-
-    return flag;
-  };
+  
 
   $scope.ValidateAnswer = function () {
     
@@ -111,6 +171,8 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
         
         $scope.NextQuestion();
 
+        model.starred = false;
+
       }, 3000);
 
     }
@@ -122,22 +184,24 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   $scope.NextQuestion = function () {
 
-    model.questions.current = model.questions.current + 1;
-    model.question = model.questions.all[model.questions.current];
+    $location.path('chestionare-auto-toate-intrebarile/'+ findNextId(model.current));
 
     $scope.StoreData();
 
     $scope.ResetAnsweres();
+
+    model.starred = false;
   };
 
   $scope.PrevQuestion = function () {
 
-    model.questions.current = model.questions.current - 1;
-    model.question = model.questions.all[model.questions.current];
+    $location.path('chestionare-auto-toate-intrebarile/'+ findPrevId(model.current));
 
     $scope.StoreData();
 
     $scope.ResetAnsweres();
+
+    model.starred = false;
   };
 
   $scope.ResetAnsweres = function () {

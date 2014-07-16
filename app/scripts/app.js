@@ -8,11 +8,27 @@ var app = angular.module('autohack', [
 	'use strict';
 
 	$routeProvider
-	.when('/chestionare-auto-toate-intrebarile', {
+	.when('/chestionare-auto-toate-intrebarile/:id', {
 		templateUrl: 'views/allquestions.html',
 		controller: 'AllQuestionsCtrl',
 		reloadOnSearch: false
-	}).otherwise({
+	})
+	.when('/intrebari-raspuns-corect', {
+		templateUrl: 'views/list.html',
+		controller: 'ListQuestionsCtrl',
+		reloadOnSearch: false
+	})
+	.when('/intrebari-raspuns-gresit', {
+		templateUrl: 'views/list.html',
+		controller: 'ListQuestionsCtrl',
+		reloadOnSearch: false
+	})
+	.when('/intrebari-marcate', {
+		templateUrl: 'views/list.html',
+		controller: 'ListQuestionsCtrl',
+		reloadOnSearch: false
+	})
+	.otherwise({
 		redirectTo: '/'
 	});
 
