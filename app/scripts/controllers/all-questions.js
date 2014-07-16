@@ -3,7 +3,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   var model = $scope.model = {};
   var root = $scope.root;
-  
+  var storage = window.localStorage;
   //var top = $scope.top;
 
   model.answers = {
@@ -14,23 +14,68 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   model.alert = false;
   model.current = 0;
+  model.questions = {
+    correct: [],
+    incorrect: []
+  };
 
-  data.GetQuestions({}).then(function (res) {
-    model.questions = res;
-    model.question = model.questions[model.current];
 
-  }, function (err) {
+  model.initQuestionsModel = function () {
     
-  });
+    if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
+      model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
+      model.question = model.questions.all[model.current];
+
+    } else {
+
+      data.GetQuestions({}).then(function (res) {
+        
+        model.questions.all = res;
+        model.question = model.questions.all[model.current];
+
+        //Store questions to localStorage
+        $scope.StoreData();
+
+      }, function (err) {
+        
+      });    
+    }
+
+  };
+
+  model.initQuestionsModel();
+
+  $scope.StoreData = function () {
+    
+    storage.setItem('questions', JSON.stringify(model.questions));
+
+  };
 
   $scope.SetAnswer = function (param) {
+    
     model.alert = false;
     
     model.answers[param] = !model.answers[param];
 
   };
 
+  var findObjectsInArray = function (arr, obj) {
+    var flag = false;
+    
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === obj.id) {
+        
+        flag = true;
+        break;
+
+      }
+    }
+
+    return flag;
+  };
+
   $scope.ValidateAnswer = function () {
+    
     var correctAnswers = model.question.v.split(' ');
     var setAnswers = [];
     
@@ -44,20 +89,37 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     model.alert = true;
 
     
-    $timeout(function () {
+    if (!model.valid) {
       
-      model.alert = false;
-      
-      $scope.NextQuestion();
+      if (!findObjectsInArray(model.questions.incorrect, model.question)) {
+        model.questions.incorrect.push(model.question);
+      }
 
-    }, 3000);
-    
+    } else {
+      
+      if (!findObjectsInArray(model.questions.correct, model.question)) {
+        model.questions.correct.push(model.question);
+      }
+
+      $timeout(function () {
+        
+        model.alert = false;
+        
+        $scope.NextQuestion();
+
+      }, 3000);
+
+    }
+
+    $scope.StoreData();
+
+
   };
 
   $scope.NextQuestion = function () {
 
     model.current = model.current + 1;
-    model.question = model.questions[model.current];
+    model.question = model.questions.all[model.current];
 
     $scope.ResetAnsweres();
   };
