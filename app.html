@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>
-    Autohack
+    Autoquiz
   </title>
-  <meta name="description" content="">
+  <meta name="description" content="Chestionare auto cu toate intrebarile">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,22 +15,59 @@
 
   <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
 
-  <link rel="stylesheet" href="/styles/8bb88b9f.app.css">
+  <link rel="stylesheet" href="/styles/45dd2ed6.app.css">
   
 </head>
-<body>
+<body ng-controller="TopCtrl">
 
   <!--[if lt IE 9]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <div class="container">
+  <div class="container-fluid">
     
+<div class="row">
+  <div class="col-md-2">
+    <ul class="nav nav-pills nav-stacked">
+      <li>
+        <a href="#/chestionar/1">Home</a>
+      </li>
+      <!-- <li>
+        <a href="">Toate <span class="label label-default">{{top.model.questions.all.length}}</span></a>
+      </li> -->
+      <!-- <li>
+        <a href="">Parcurse <span class="label label-default">{{top.model.current}}</span></a>
+      </li> -->
+      <li>
+        <a href="#/intrebari-raspuns-corect">Corecte:
+          <span class="label label-success">{{top.model.questions.correct.length}}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#/intrebari-raspuns-gresit">Incorecte:
+          <span class="label label-danger">{{top.model.questions.incorrect.length}}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#/intrebari-marcate">Marcate:
+          <span class="label label-warning">{{top.model.questions.starred.length}}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#/chestionar/{{top.model.questions.current}}">Ai ramas la intrebarea
+          <span class="label label-warning">{{top.model.questions.current}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 
-<div ng-view="" class="app-content"></div>
+  <div ng-view="" class="app-content col-md-8"></div>
+</div>
+
+
   </div>
   <script src="/scripts/fe556178.plugins-app.js"></script>
 
-  <script src="/scripts/d4bb8028.app.js"></script>
+  <script src="/scripts/16057136.app.js"></script>
 
 </body>
 </html>
