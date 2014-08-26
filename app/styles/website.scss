@@ -10,6 +10,11 @@
 $color1: #2854a1;
 $color2: lighten(saturate($color1, 40%), 20%);
 
+.logo {
+  font-family: $orbitron;
+  font-size: 64px;
+}
+
 /* Utils
  */
 @import "utils";
@@ -17,5 +22,9 @@ $color2: lighten(saturate($color1, 40%), 20%);
 /* Bootstrap Theme
  */
 @import "theme";
+
+
+
+
 
 //@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";

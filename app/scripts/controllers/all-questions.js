@@ -22,7 +22,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     current: parseInt($routeParams.id, 10)
   };
 
-  var current = parseInt($routeParams.id, 10);
+  model.current = parseInt($routeParams.id, 10);
 
   model.starred = false;
 
@@ -93,7 +93,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
       
       model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
 
-      model.question = findObjectById(current);
+      model.question = findObjectById(model.current);
 
 
     } else {
@@ -101,7 +101,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
       data.GetQuestions({}).then(function (res) {
         
         model.questions.all = res;
-        model.question = findObjectById(current);
+        model.question = findObjectById(model.current);
 
         //Store questions to localStorage
         $scope.StoreData();
@@ -191,7 +191,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   $scope.NextQuestion = function () {
 
-    var nextId = findNextId(current);
+    var nextId = findNextId(model.current);
 
     model.questions.current = nextId;
 
@@ -207,7 +207,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   $scope.PrevQuestion = function () {
 
-    var prevId = findPrevId(current);
+    var prevId = findPrevId(model.current);
 
     model.questions.current = prevId;    
 
