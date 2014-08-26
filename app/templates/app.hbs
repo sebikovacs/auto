@@ -1,5 +1,40 @@
 ---
 layout: app.html
 ---
+<div class="row">
 
-<div ng-view class="app-content"></div>
+  {{top.model.questions}}
+  <div class="col-md-2">
+    <table class="table">
+        <tr>
+          <td>Toate:</td>
+          <td><span class="label label-default">{{top.model.questions.all.length}}</span></td>
+        </tr>
+        <tr>
+          <td>Parcurse:</td>
+          <td><span class="label label-default">{{model.current}}</span></td>
+        </tr>
+        <tr>
+          <td>Neparcurse:</td>
+          <td><span class="label label-default">{{model.questions.all.length - model.current}}</span></td>
+        </tr>
+      </table>
+      <table class="table">
+        <tr>
+          <td><a href="#/intrebari-raspuns-corect">Corecte</a>:</td>
+          <td><span class="label label-success">{{model.questions.correct.length}}</span></td>
+        </tr>
+        <tr>
+          <td><a href="#/intrebari-raspuns-gresit">Incorecte</a>:</td>
+          <td><span class="label label-danger">{{model.questions.incorrect.length}}</span></td>
+        </tr>
+        <tr>
+          <td><a href="#/intrebari-marcate">Marcate</a>:</td>
+          <td><span class="label label-warning">{{model.questions.starred.length}}</span></td>
+        </tr>
+      </table>
+  </div>
+
+  <div ng-view class="app-content col-md-10"></div>
+</div>
+

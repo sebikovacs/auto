@@ -4,7 +4,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   var model = $scope.model = {};
   var root = $scope.root;
   var storage = window.localStorage;
-  //var top = $scope.top;
+  var top = $scope.top;
 
   model.answers = {
     a: false,

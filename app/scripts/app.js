@@ -8,7 +8,7 @@ var app = angular.module('autohack', [
 	'use strict';
 
 	$routeProvider
-	.when('/chestionare-auto-toate-intrebarile/:id', {
+	.when('/chestionar/:id', {
 		templateUrl: 'views/allquestions.html',
 		controller: 'AllQuestionsCtrl',
 		reloadOnSearch: false

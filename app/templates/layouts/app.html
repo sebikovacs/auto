@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>
-    Autohack
+    Autoquiz
   </title>
-  <meta name="description" content="">
+  <meta name="description" content="Chestionare auto cu toate intrebarile">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,12 +20,12 @@
   <!-- endbuild -->
   
 </head>
-<body>
+<body ng-controller="TopCtrl">
 
   <!--[if lt IE 9]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <div class="container">
+  <div class="container-fluid">
     {{> body }}
   </div>
   <!-- build:js(app) /scripts/plugins-app.js -->
@@ -43,6 +43,7 @@
   <script src="/scripts/app.js"></script>
   <script src="/scripts/directives/fileread.js"></script>
   <script src="/scripts/directives/payment.js"></script>
+  <script src="/scripts/controllers/top.js"></script>
   <script src="/scripts/controllers/all-questions.js"></script>
   <script src="/scripts/controllers/list-questions.js"></script>
   <script src="/scripts/services/data.js"></script>
