@@ -2,39 +2,40 @@
 layout: app.html
 ---
 <div class="row">
-
-  {{top.model.questions}}
   <div class="col-md-2">
-    <table class="table">
-        <tr>
-          <td>Toate:</td>
-          <td><span class="label label-default">{{top.model.questions.all.length}}</span></td>
-        </tr>
-        <tr>
-          <td>Parcurse:</td>
-          <td><span class="label label-default">{{model.current}}</span></td>
-        </tr>
-        <tr>
-          <td>Neparcurse:</td>
-          <td><span class="label label-default">{{model.questions.all.length - model.current}}</span></td>
-        </tr>
-      </table>
-      <table class="table">
-        <tr>
-          <td><a href="#/intrebari-raspuns-corect">Corecte</a>:</td>
-          <td><span class="label label-success">{{model.questions.correct.length}}</span></td>
-        </tr>
-        <tr>
-          <td><a href="#/intrebari-raspuns-gresit">Incorecte</a>:</td>
-          <td><span class="label label-danger">{{model.questions.incorrect.length}}</span></td>
-        </tr>
-        <tr>
-          <td><a href="#/intrebari-marcate">Marcate</a>:</td>
-          <td><span class="label label-warning">{{model.questions.starred.length}}</span></td>
-        </tr>
-      </table>
+    <ul class="nav nav-pills nav-stacked">
+      <li>
+        <a href="#/chestionar/1">Home</a>
+      </li>
+      <!-- <li>
+        <a href="">Toate <span class="label label-default">\{{top.model.questions.all.length}}</span></a>
+      </li> -->
+      <!-- <li>
+        <a href="">Parcurse <span class="label label-default">\{{top.model.current}}</span></a>
+      </li> -->
+      <li>
+        <a href="#/intrebari-raspuns-corect">Corecte:
+          <span class="label label-success">\{{top.model.questions.correct.length}}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#/intrebari-raspuns-gresit">Incorecte:
+          <span class="label label-danger">\{{top.model.questions.incorrect.length}}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#/intrebari-marcate">Marcate:
+          <span class="label label-warning">\{{top.model.questions.starred.length}}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#/chestionar/\{{top.model.questions.current}}">Ai ramas la intrebarea
+          <span class="label label-warning">\{{top.model.questions.current}}</span>
+        </a>
+      </li>
+    </ul>
   </div>
 
-  <div ng-view class="app-content col-md-10"></div>
+  <div ng-view class="app-content col-md-8"></div>
 </div>
 

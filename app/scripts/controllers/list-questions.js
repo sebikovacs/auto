@@ -23,12 +23,12 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
     if ($location.path() == '/intrebari-raspuns-corect') {
       
       model.questionsList = model.questions.correct;
-      model.listName = 'corecte';
+      model.listName = 'corect';
 
     } else if ($location.path() == '/intrebari-raspuns-gresit') {
       
       model.questionsList = model.questions.incorrect;
-      model.listName = 'gresite';
+      model.listName = 'gresit';
 
     } else if ($location.path() == '/intrebari-marcate') {
       

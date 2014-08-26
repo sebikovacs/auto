@@ -1,8 +1,4 @@
-
-  <h1>Chestionar auto cu toate intrebarile</h1>
-
-  <hr>
-
+<div class="quiz-question">
   <div class="alert" ng-show="model.alert" ng-class="{true: 'alert-success', false: 'alert-danger'}[model.valid]">
     <p ng-show="model.valid">Raspuns corect.</p>
     <p ng-hide="model.valid">Raspuns gresit.</p>
@@ -14,20 +10,23 @@
       ng-click="StarQuestion()" 
       ng-class="{'fa-star': model.starred, 'fa-star-o': !model.starred,}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"></span>
   </h2>
-  <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
-
-  <div>
-    <ol class="answers">
-      <li ng-click="SetAnswer('a')" ng-class="{'selected':model.answers.a}">A. {{model.question.a}}</li>
-      <li ng-click="SetAnswer('b')" ng-class="{'selected':model.answers.b}">B. {{model.question.b}}</li>
-      <li ng-click="SetAnswer('c')" ng-class="{'selected':model.answers.c}">C. {{model.question.c}}</li>
-    </ol>
+  <div class="image">
+    <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
   </div>
   
-  <div class="set-answeres">
-    <a class="btn btn-default" ng-click="SetAnswer('a')" ng-class="{'btn-primary':model.answers.a}">A</a>
-    <a class="btn btn-default" ng-click="SetAnswer('b')" ng-class="{'btn-primary':model.answers.b}">B</a>
-    <a class="btn btn-default" ng-click="SetAnswer('c')" ng-class="{'btn-primary':model.answers.c}">C</a>
+
+  
+  <ol class="answers">
+    <li ng-click="SetAnswer('a')" ng-class="{'selected':model.answers.a}">A. {{model.question.a}}</li>
+    <li ng-click="SetAnswer('b')" ng-class="{'selected':model.answers.b}">B. {{model.question.b}}</li>
+    <li ng-click="SetAnswer('c')" ng-class="{'selected':model.answers.c}">C. {{model.question.c}}</li>
+  </ol>
+  
+  
+  <div class="set-answers">
+    <a class="btn btn-default btn-lg" ng-click="SetAnswer('a')" ng-class="{'btn-primary':model.answers.a}">A</a>
+    <a class="btn btn-default btn-lg" ng-click="SetAnswer('b')" ng-class="{'btn-primary':model.answers.b}">B</a>
+    <a class="btn btn-default btn-lg" ng-click="SetAnswer('c')" ng-class="{'btn-primary':model.answers.c}">C</a>
   </div>
   
   <div class="buttons">
@@ -40,3 +39,5 @@
     </a>
   </div>
   
+
+</div>

@@ -13,13 +13,16 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.alert = false;
-  model.current = parseInt($routeParams.id, 10);
+  //model.questions.current = parseInt($routeParams.id, 10);
   
   model.questions = {
     correct: [],
     incorrect: [],
-    starred: []
+    starred: [],
+    current: parseInt($routeParams.id, 10)
   };
+
+  var current = parseInt($routeParams.id, 10);
 
   model.starred = false;
 
@@ -84,17 +87,21 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   model.initQuestionsModel = function () {
     
-    if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
+    
 
+    if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
+      
       model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
-      model.question = findObjectById(model.current);
+
+      model.question = findObjectById(current);
+
 
     } else {
 
       data.GetQuestions({}).then(function (res) {
         
         model.questions.all = res;
-        model.question = findObjectById(model.current);
+        model.question = findObjectById(current);
 
         //Store questions to localStorage
         $scope.StoreData();
@@ -157,6 +164,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
       
       if (!findObjectsInArray(model.questions.incorrect, model.question)) {
         model.questions.incorrect.push(model.question);
+
       }
 
     } else {
@@ -170,6 +178,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
         model.alert = false;
         
         $scope.NextQuestion();
+        $scope.$emit('$answersUpdate');
 
         model.starred = false;
 
@@ -178,30 +187,37 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     }
 
     $scope.StoreData();
-
-
   };
 
   $scope.NextQuestion = function () {
 
-    $location.path('chestionare-auto-toate-intrebarile/'+ findNextId(model.current));
+    var nextId = findNextId(current);
+
+    model.questions.current = nextId;
 
     $scope.StoreData();
 
     $scope.ResetAnsweres();
 
     model.starred = false;
+
+    $location.path('chestionar/'+ nextId);
+    
   };
 
   $scope.PrevQuestion = function () {
 
-    $location.path('chestionare-auto-toate-intrebarile/'+ findPrevId(model.current));
+    var prevId = findPrevId(current);
+
+    model.questions.current = prevId;    
 
     $scope.StoreData();
 
     $scope.ResetAnsweres();
 
     model.starred = false;
+
+    $location.path('chestionar/'+ prevId);
   };
 
   $scope.ResetAnsweres = function () {

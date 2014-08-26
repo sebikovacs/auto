@@ -29,15 +29,32 @@ html {
   }
 }
 
-.answers {
-  list-style-type: none;
-  
-  li.selected {
-    background: rgb(228, 253, 228);
+.nav-stacked {
+  margin-top: 20px;
+
+  li {
+    a {
+      @include clearfix;
+      border: 1px solid #ccc;  
+      span {
+        float: right;
+      }
+    }
+  }
+}
+
+.quiz-question {
+  padding: 30px 0 0 0;
+
+  .image {
+    text-align: center;
+    margin: 0 0 30px;
   }
 }
 
 h2.question {
+  margin: 0 0 30px;
+
   span.fa {
     color: rgb(231, 221, 99);
 
@@ -45,4 +62,30 @@ h2.question {
       cursor: pointer;
     }
   }
+}
+
+.answers {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto 30px;
+  max-width: 820px;
+  font-size: 20px;
+  
+  li.selected {
+    background: rgb(228, 253, 228);
+  }
+}
+
+.set-answers {
+  text-align: center;
+  margin: 0 0 20px;
+
+  .btn {
+    margin: 0 10px;
+  }
+}
+
+.buttons {
+  text-align: center;
+  margin-bottom: 30px;
 }
