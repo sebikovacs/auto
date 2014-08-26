@@ -338,7 +338,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy', [
     'default',
-    'buildcontrol:dist'
+    'buildcontrol:github'
   ]);
 
   grunt.registerTask('devdeploy', [
