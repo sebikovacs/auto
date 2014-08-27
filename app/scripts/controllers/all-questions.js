@@ -143,8 +143,6 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
   };
 
-  
-
   $scope.ValidateAnswer = function () {
     
     var correctAnswers = model.question.v.split(' ');
@@ -169,8 +167,6 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     }
     
     model.alert = true;
-
-    console.log(model.valid, model.alert);
 
     
     if (!model.valid) {
@@ -237,6 +233,28 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     model.answers.a = false;
     model.answers.b = false;
     model.answers.c = false;
+  };
+
+  $scope.HideAlert = function () {
+    
+    model.alert = false;
+
+    $scope.ResetAnsweres();
+
+  };
+
+  $scope.ShowRightAnswers = function () {
+
+    $scope.HideAlert();
+
+    var rightAnswers = model.question.v.split('');
+
+    angular.forEach(rightAnswers, function (answer) {
+
+      model.answers[answer] = !model.answers[answer];
+
+    });
+    
   };
 
 });

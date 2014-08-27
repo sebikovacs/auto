@@ -32,6 +32,15 @@ html {
   }
 }
 
+.logo {
+  display: block;
+  margin: 30px 0 20px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
 .nav-stacked {
   margin-top: 20px;
 
@@ -48,7 +57,7 @@ html {
 }
 
 .quiz-question {
-  padding: 30px 0 0 0;
+  padding: 40px 0 0 0;
 
   .image {
     text-align: center;
@@ -57,7 +66,9 @@ html {
 }
 
 h2.question {
-  margin: 0 0 30px;
+  margin: 0 auto 30px;
+  text-align: center;
+  width: 820px;
 
   span.fa {
     color: rgb(231, 221, 99);
@@ -74,6 +85,10 @@ h2.question {
   margin: 0 auto 30px;
   max-width: 820px;
   font-size: 20px;
+
+  li {
+    margin: 0 0 20px;
+  }
   
   li.selected {
     background: rgb(228, 253, 228);
@@ -106,6 +121,20 @@ h2.question {
   font-weight: bold;
   top: 3%;
   left: 0;
+
+  .fa-times-circle {
+    color: #fff;
+    font-size: 30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    opacity: .8;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: none;
+    }
+  }
 
   &.overlay-alert-success {
     background: rgb(75, 167, 101);  

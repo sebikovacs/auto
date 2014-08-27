@@ -1,6 +1,8 @@
 <div class="quiz-question">
   
   <div class="overlay-alert" ng-show="model.alert" ng-class="{'overlay-alert-success': model.valid, 'overlay-alert-danger': model.invalid}">
+
+    <a ng-click="HideAlert()" href="" class="fa fa-times-circle"></a>
     
     <div ng-show="model.valid">
       
@@ -12,9 +14,8 @@
 
       <p> <span class="fa fa-times"></span> Raspuns gresit</p>
       
-      <a class="btn btn-default">Mai incearca</a>
-      <a class="btn btn-default">Arata raspuns corect</a>
-      <a class="btn btn-default">Mergi la intreabarea urmatoare</a>
+      <a class="btn btn-default" ng-click="ShowRightAnswers()">Arata raspuns corect</a>
+      <a class="btn btn-default" ng-click="NextQuestion()">Mergi la intreabarea urmatoare</a>
 
     </div>
 
