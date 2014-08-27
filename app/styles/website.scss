@@ -10,9 +10,19 @@
 $color1: #2854a1;
 $color2: lighten(saturate($color1, 40%), 20%);
 
+
+.tmp-header {
+  text-align: center;
+  margin: 50px 0 0;
+
+  img.logo {
+    display: inline-block;
+    margin: 0 0 130px;
+  }
+}
 .logo {
   /*font-family: $orbitron;*/
-  font-size: 64px;
+  
 }
 
 /* Utils
