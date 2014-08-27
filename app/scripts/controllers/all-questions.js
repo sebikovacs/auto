@@ -156,8 +156,21 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
       }
     });
      
-    model.valid = angular.equals(setAnswers.sort(), correctAnswers.sort());
+    if (angular.equals(setAnswers.sort(), correctAnswers.sort())) {
+      
+      model.valid = true;
+      model.invalid = false;
+
+    } else {
+
+      model.valid = false;
+      model.invalid = true;
+
+    }
+    
     model.alert = true;
+
+    console.log(model.valid, model.alert);
 
     
     if (!model.valid) {

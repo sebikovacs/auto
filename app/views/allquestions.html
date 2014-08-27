@@ -1,7 +1,23 @@
 <div class="quiz-question">
-  <div class="alert" ng-show="model.alert" ng-class="{true: 'alert-success', false: 'alert-danger'}[model.valid]">
-    <p ng-show="model.valid">Raspuns corect.</p>
-    <p ng-hide="model.valid">Raspuns gresit.</p>
+  
+  <div class="overlay-alert" ng-show="model.alert" ng-class="{'overlay-alert-success': model.valid, 'overlay-alert-danger': model.invalid}">
+    
+    <div ng-show="model.valid">
+      
+      <p> <span class="fa fa-check"></span> Raspuns corect</p>
+
+    </div>
+
+    <div ng-show="model.invalid">
+
+      <p> <span class="fa fa-times"></span> Raspuns gresit</p>
+      
+      <a class="btn btn-default">Mai incearca</a>
+      <a class="btn btn-default">Arata raspuns corect</a>
+      <a class="btn btn-default">Mergi la intreabarea urmatoare</a>
+
+    </div>
+
   </div>
 
   <h2 class="question">#{{model.current}}. {{model.question.q}} 
