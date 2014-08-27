@@ -8,7 +8,11 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
     questions: {}
   };
 
-  
+  $scope.StoreData = function () {
+    
+    storage.setItem('questions', JSON.stringify(top.model.questions));
+
+  };
 
   var initQuestionsModel = function () {
     
@@ -21,7 +25,7 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
 
       data.GetQuestions({}).then(function (res) {
         
-        model.questions.all = res;
+        top.model.questions.all = res;
         
         //Store questions to localStorage
         $scope.StoreData();
