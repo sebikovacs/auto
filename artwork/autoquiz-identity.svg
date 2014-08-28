@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="autoquiz-identify.svg"
+   sodipodi:docname="autoquiz-identity.svg"
    inkscape:export-filename="/home/mokush/Dev/auto/artwork/autoquiz-identity.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -23,11 +23,11 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497476"
-     inkscape:cx="380.34784"
-     inkscape:cy="478.04058"
+     inkscape:cx="262.81537"
+     inkscape:cy="352.38191"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -78,15 +78,6 @@
          d="m 94.311393,152.23055 -26.53061,40.6908 185.714287,0 -26.53062,-41.16456 z"
          style="opacity:0.76987448;fill:#0000ff;fill-opacity:1;stroke:none" />
     </clipPath>
-    <filter
-       inkscape:collect="always"
-       id="filter3842"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.45097"
-         id="feGaussianBlur3844" />
-    </filter>
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath4020">
@@ -131,7 +122,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
