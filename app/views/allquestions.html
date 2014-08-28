@@ -46,11 +46,13 @@
   </div>
   
   <div class="buttons">
-    <a class="btn btn-default" href="" ng-click="PrevQuestion()" ng-show="model.current > 1">
+    <a class="prev" href="" ng-click="PrevQuestion()" ng-show="model.current > 1" >
       <span class="fa-chevron-left fa"></span>
     </a>
+    
     <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
-    <a class="btn btn-default" href="" ng-click="NextQuestion()">
+    
+    <a class="next" href="" ng-click="NextQuestion()">
       <span class="fa-chevron-right fa"></span>
     </a>
   </div>
