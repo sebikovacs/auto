@@ -56,13 +56,13 @@ app.factory('data', function($rootScope, $http, $q) {
 		return deferred.promise;
 	};
 
-	// get list of offers
-	var GetOffers = function() {
+
+	var GetLegis = function () {
 		var deferred = $q.defer();
 
-		$http.get(apiUrl + '/api/v1/offers')
+		$http.get('/legis.json')
 		.success(function(response) {
-
+			
 			deferred.resolve(response);
 
 		}).error(function(err) {
@@ -73,28 +73,15 @@ app.factory('data', function($rootScope, $http, $q) {
 
 		return deferred.promise;
 	};
-
-	var SendOrder = function(params) {
-		var deferred = $q.defer();
-
-		$http.post(apiUrl + '/api/v1/orders', params)
-		.success(function(response) {
-			deferred.resolve(response);
-		}).error(function(err) {
-			deferred.reject(err);
-		});
-
-		return deferred.promise;
-	};
+	
 
 	return {
 		printchompUrl: printchompUrl,
 		env: env,
 
 		model: model,
-		GetOffers: GetOffers,
-		SendOrder: SendOrder,
-		GetQuestions: GetQuestions
+		GetQuestions: GetQuestions,
+		GetLegis: GetLegis
 	};
 
 });

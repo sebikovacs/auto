@@ -28,6 +28,11 @@ var app = angular.module('autohack', [
 		controller: 'ListQuestionsCtrl',
 		reloadOnSearch: false
 	})
+	.when('/legislatie-rutiera', {
+		templateUrl: 'views/legis.html',
+		controller: 'LegisCtrl',
+		reloadOnSearch: false
+	})
 	.otherwise({
 		redirectTo: '/chestionar/1'
 	});

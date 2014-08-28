@@ -2,7 +2,7 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
   'use strict';
 
   var model = $scope.model = {};
-  var root = $scope.root;
+  //var root = $scope.root;
   var storage = window.localStorage;
 
   model.initQuestionsModel = function () {
@@ -20,17 +20,17 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
   model.initQuestionsModel();
 
   if (model.questions) {
-    if ($location.path() == '/intrebari-raspuns-corect') {
+    if ($location.path() === '/intrebari-raspuns-corect') {
       
       model.questionsList = model.questions.correct;
       model.listName = 'corect';
 
-    } else if ($location.path() == '/intrebari-raspuns-gresit') {
+    } else if ($location.path() === '/intrebari-raspuns-gresit') {
       
       model.questionsList = model.questions.incorrect;
       model.listName = 'gresit';
 
-    } else if ($location.path() == '/intrebari-marcate') {
+    } else if ($location.path() === '/intrebari-marcate') {
       
       model.questionsList = model.questions.starred;
       model.listName = 'marcate';

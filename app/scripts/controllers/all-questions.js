@@ -2,9 +2,9 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 	'use strict';
 
   var model = $scope.model = {};
-  var root = $scope.root;
+  //var root = $scope.root;
   var storage = window.localStorage;
-  var top = $scope.top;
+  //var top = $scope.top;
 
   model.answers = {
     a: false,
@@ -63,7 +63,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     var nextId = null;
     
     for (var i = 0; i < model.questions.all.length; i++) {
-      if (model.questions.all[i].id == id) {
+      if (model.questions.all[i].id === id) {
         nextId = model.questions.all[i+1].id;
         break;
       }
@@ -76,7 +76,7 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     var nextId = null;
     
     for (var i = 0; i < model.questions.all.length; i++) {
-      if (model.questions.all[i].id == id) {
+      if (model.questions.all[i].id === id) {
         nextId = model.questions.all[i-1].id;
         break;
       }
@@ -107,6 +107,8 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
         $scope.StoreData();
 
       }, function (err) {
+
+        console.log(err);
         
       });    
     }
