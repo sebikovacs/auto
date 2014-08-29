@@ -1,29 +1,9 @@
-/* Addsavvy website
+/* Autoquiz website
  */
 
 /* Bourbon
  */
 @import "../bower_components/bourbon/dist/bourbon";
-
-/* Globals
- */
-$color1: #2854a1;
-$color2: lighten(saturate($color1, 40%), 20%);
-
-
-.tmp-header {
-  text-align: center;
-  margin: 50px 0 0;
-
-  img.logo {
-    display: inline-block;
-    margin: 0 0 130px;
-  }
-}
-.logo {
-  /*font-family: $orbitron;*/
-  
-}
 
 /* Utils
  */
@@ -33,4 +13,131 @@ $color2: lighten(saturate($color1, 40%), 20%);
  */
 @import "theme";
 
-//@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
+/* General
+ */
+
+img {
+  max-width: 100%;
+}
+
+.container-narrow {
+  max-width: emCalc(660);
+  margin: 0 auto;
+}
+
+/* Header
+ */
+
+.header {
+  padding: emCalc(60) 0 emCalc(100);
+
+  li a {
+    font-size: emCalc(14);
+    line-height: 50px;
+    text-transform: uppercase;
+  }
+
+}
+
+/* Promo
+ */
+
+.promo-home {
+  padding: 0;
+  margin: 0 0 emCalc(120);
+  background: none;
+
+  text-align: center;
+
+  h1 {
+    margin: 0 0 emCalc(4);
+  }
+
+  p {
+    margin: 0 0 emCalc(20);
+
+    color: darken($colorBg, 60%);
+  }
+
+  .btn {
+    position: relative;
+    padding-left: emCalc(36);
+
+    font-size: emCalc(20);
+    font-weight: bold;
+
+    i {
+      position: absolute;
+      top: 50%;
+      left: emCalc(6);
+      margin-top: emCalc(-8);
+      opacity: .8;
+
+      font-size: emCalc(24);
+    }
+  }
+}
+
+/* Features
+ */
+
+.features {
+  margin: 0 0 emCalc(80);
+
+  .feature-box {
+
+    text-align: center;
+
+    .fa {
+      margin: 0 0 emCalc(16);
+      padding: emCalc(16);
+      background-color: $color2;
+      border-radius: 100%;
+
+      color: #fff;
+      font-size: emCalc(24);
+    }
+
+    h4 {
+      margin: 0 0 emCalc(16);
+
+      color: darken($color2, 8%);
+      font-size: emCalc(24);
+    }
+
+  }
+
+}
+
+/* Cta2
+ */
+
+.cta-2 {
+  margin: 0 0 emCalc(40);
+  padding: emCalc(20) 0;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: darken($colorBg, 8%);
+
+  font-weight: bold;
+  text-align: center;
+
+  .btn {
+    margin-left: emCalc(12);
+
+    font-weight: bold;
+  }
+}
+
+/* Footer
+ */
+
+.copy {
+  color: darken($colorBg, 20%);
+}
+
+.footer {
+  padding: 0 0 emCalc(20);
+
+  font-size: emCalc(14);
+}
