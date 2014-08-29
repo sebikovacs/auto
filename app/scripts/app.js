@@ -13,17 +13,7 @@ var app = angular.module('autohack', [
 		controller: 'AllQuestionsCtrl',
 		reloadOnSearch: false
 	})
-	.when('/intrebari-raspuns-corect', {
-		templateUrl: 'views/list.html',
-		controller: 'ListQuestionsCtrl',
-		reloadOnSearch: false
-	})
-	.when('/intrebari-raspuns-gresit', {
-		templateUrl: 'views/list.html',
-		controller: 'ListQuestionsCtrl',
-		reloadOnSearch: false
-	})
-	.when('/intrebari-marcate', {
+	.when('/intrebari/:tag', {
 		templateUrl: 'views/list.html',
 		controller: 'ListQuestionsCtrl',
 		reloadOnSearch: false

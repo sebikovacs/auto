@@ -98,11 +98,13 @@ h2.question {
   font-size: 20px;
 
   li {
-    margin: 0 0 20px;
+    margin: 0 0 10px;
+    padding: 5px 0 5px 10px;
   }
   
   li.selected {
-    background: rgb(228, 253, 228);
+    background: rgb(75, 167, 101);
+    color: #fff;
   }
 }
 
