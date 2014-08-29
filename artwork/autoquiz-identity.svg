@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="autoquiz-identify.svg"
+   sodipodi:docname="autoquiz-identity.svg"
    inkscape:export-filename="/home/mokush/Dev/auto/artwork/autoquiz-identity.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -23,13 +23,13 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497476"
-     inkscape:cx="380.34784"
-     inkscape:cy="478.04058"
+     inkscape:zoom="0.70000002"
+     inkscape:cx="515.8378"
+     inkscape:cy="427.00404"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g3869"
      showgrid="false"
      inkscape:window-width="1233"
      inkscape:window-height="800"
@@ -78,15 +78,6 @@
          d="m 94.311393,152.23055 -26.53061,40.6908 185.714287,0 -26.53062,-41.16456 z"
          style="opacity:0.76987448;fill:#0000ff;fill-opacity:1;stroke:none" />
     </clipPath>
-    <filter
-       inkscape:collect="always"
-       id="filter3842"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.45097"
-         id="feGaussianBlur3844" />
-    </filter>
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath4020">
@@ -263,7 +254,10 @@
        transform="matrix(1.2011418,0,0,1.2011418,-64.426698,494.52478)">
       <g
          id="g3845"
-         transform="matrix(0.30003264,0,0,0.30003264,113.03014,114.69348)">
+         transform="matrix(0.30003264,0,0,0.30003264,113.03014,114.69348)"
+         inkscape:export-filename="/home/mokush/Dev/auto/artwork/text3891.png"
+         inkscape:export-xdpi="120"
+         inkscape:export-ydpi="120">
         <path
            style="fill:#32c243;fill-opacity:1;stroke:none"
            d="m 192,46.90625 c -70.95221,0 -131.07199,46.253066 -151.90625,110.25 l -18.125,-6.28125 7.53125,39.28125 7.5,39.25 10.84375,-9.375 C 46.929904,213.4856 46.4375,206.79739 46.4375,200 46.4375,120.71866 110.71866,56.4375 190,56.4375 c 32.12706,0 61.76823,10.57643 85.6875,28.40625 L 280.40625,80 C 254.03475,60.784174 227.13109,46.90625 192,46.90625 z"
@@ -314,9 +308,12 @@
          id="text3841"
          y="158.08849"
          x="222.58018"
-         style="font-size:21.07911491px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           style="font-size:75.88481903px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:-5.48592472px;fill:#1a1a1a;font-family:Montserrat;-inkscape-font-specification:Montserrat"
+         style="font-size:21.07911491000000126px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"
+         inkscape:export-filename="/home/mokush/Dev/auto/artwork/text3891.png"
+         inkscape:export-xdpi="120"
+         inkscape:export-ydpi="120"><tspan
+           style="font-size:75.88481903000000273px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:-5.48592471999999987px;fill:#4d4d4d;font-family:Montserrat;-inkscape-font-specification:Montserrat"
            y="158.08849"
            x="222.58018"
            id="tspan3843"
@@ -327,7 +324,9 @@
          x="427.14746"
          y="158.08849"
          id="text3891"
-         sodipodi:linespacing="125%"><tspan
+         sodipodi:linespacing="125%"
+         inkscape:export-xdpi="120"
+         inkscape:export-ydpi="120"><tspan
            sodipodi:role="line"
            id="tspan3893"
            x="427.14746"

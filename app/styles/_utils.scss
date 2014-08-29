@@ -1,6 +1,15 @@
 /* Utils
  */
 
+/* Variables
+ */
+$color1: #004BAC;
+$color2: #32C243;
+$colorBg: #F9F9F9;
+
+/* Mixins
+ */
+
 $em-base: 16 !default;
 
 @function strip-unit($num) {
