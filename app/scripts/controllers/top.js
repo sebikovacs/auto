@@ -42,5 +42,48 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
   });
 
   initQuestionsModel();
+
+  // extract an array of tags
+  var alltags = [];
+  $scope.tags = [];
+
+  angular.forEach(top.model.questions.all, function (question) {
+
+    alltags.push.apply(alltags, question.tags);
+
+  });
+
+  angular.forEach(alltags, function (tag) {
+    
+    if($.inArray(tag, $scope.tags) === -1) $scope.tags.push(tag);
+
+  });
+
+  $scope.SetLabel = function (label) {
+  
+    var prevTags = $location.search();
+
+    label = label.replace(/ /g,"_");
+
+    if (prevTags.tags) {
+      label = prevTags.tags + '+' + label;
+    }
+
+    $location.search({
+      tags: label
+    });
+    
+  };
+
+  // Tagging
+
+  // aici preluam clickurile pe label
+  // formatam url-ul cu mai multe labeluri daca se poate
+  // trimitem mai departe cu location
+  // adaugam un selected la label-ul selectat
+
+  // in tagcontroller
+  // descalcim url-ul
+  // filtram intrebarile in functie de taguri
   
 });

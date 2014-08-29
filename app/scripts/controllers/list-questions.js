@@ -5,8 +5,6 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
   //var root = $scope.root;
   var storage = window.localStorage;
 
-  console.log($routeParams);
-
   model.initQuestionsModel = function () {
     
     if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
@@ -21,8 +19,10 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
 
   };
 
+  
   model.initQuestionsModel();
 
+  
   if (model.questions) {
     if ($routeParams.tag === 'corecte') {
       
@@ -46,6 +46,11 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
 
     }
   }
+
+  if ($location.search().tags) {
+    
+  }
+
 
   // if (model.questions) {
   //   if ($location.path() === '/intrebari-raspuns-corect') {
