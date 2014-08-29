@@ -25,7 +25,6 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
 
   
   if (model.questions) {
-    console.log(model.questions);
     if ($routeParams.tag === 'corecte') {
       
       model.questionsList = model.questions.correct;

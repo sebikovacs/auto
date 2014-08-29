@@ -13,10 +13,10 @@ var app = angular.module('autohack', [
 		controller: 'AllQuestionsCtrl',
 		reloadOnSearch: false
 	})
-	.when('/intrebari/:tag', {
+	.when('/intrebari', {
 		templateUrl: 'views/list.html',
 		controller: 'ListQuestionsCtrl',
-		reloadOnSearch: false
+		reloadOnSearch: true
 	})
 	.when('/legislatie-rutiera', {
 		templateUrl: 'views/legis.html',

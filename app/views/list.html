@@ -1,7 +1,7 @@
-<h2>Lista de intrebari "{{model.listName}}":</h2>
+<h2>Lista de intrebari</h2>
 
 <ul>
-  <li ng-repeat="question in model.taggedQuestions">
+  <li ng-repeat="question in model.taggedQuestions track by $index">
     <a href="#/chestionar/{{question.id}}">{{question.q}}</a>
   </li>
 </ul>

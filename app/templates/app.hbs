@@ -45,9 +45,14 @@ layout: app.html
 
     <h2 class="nav-title">Filtre</h2>
 
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked filters">
+
       <li ng-repeat="tag in tags">
-        <a href="" ng-click="SetLabel(tag)">\{{tag}}</a>
+
+        <a href="" ng-class="{true: 'selected', false: ''}[top.model.label.indexOf(tag) > 0]" ng-click="SetLabel(tag)">
+          \{{tag}}
+        </a>
+
       </li>
     </ul>
   </div>

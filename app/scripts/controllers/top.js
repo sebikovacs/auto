@@ -62,14 +62,33 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
   $scope.SetLabel = function (label) {
   
     var prevTags = $location.search();
+    var index = 0;
 
     label = label.replace(/ /g,"_");
 
     if (prevTags.tags) {
-      label = prevTags.tags + '+' + label;
+
+      // check if selected
+      if (prevTags.tags.indexOf(label) < 0) {
+
+        label = prevTags.tags + '+' + label;
+
+      } else {
+
+        // find position in array and remove label
+        var arr = prevTags.tags.split('+');
+
+        index = arr.indexOf(label);
+        arr.splice(index, 1);
+        label = arr.join('+');
+        
+      }
+
     }
 
-    $location.search({
+    top.model.label = label;
+    
+    $location.path('/intrebari').search({
       tags: label
     });
     

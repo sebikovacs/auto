@@ -47,7 +47,7 @@ html {
 
 .sidebar {
   padding: 30px 15px;
-  background: $color1;
+  background: lighten($color1, 5%);
 
   @include breakpoint(papa-bear) {
     position: fixed;
@@ -83,6 +83,21 @@ html {
       background: darken($color1, 8%);
     }
   }
+}
+
+h2.nav-title {
+  color: #FFF;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  position: relative;
+  left: -15px;
+  width: 111%;
+  padding: 10px 0 10px 15px;
+  margin: 26px 0 0 0;
+  background: rgba(0,0,0, .2);
+  border-top: 1px solid darken($color1, 10%);
+  border-bottom: 1px solid darken($color1, 10%);
 }
 
 .quiz-question {
@@ -215,12 +230,25 @@ h2.question {
   }
 }
 
+
+/* Legislation page
+*/
+
 .legis {
   li {
     margin-bottom: 10px;
   }
   ul {
     padding-top: 10px;
+  }
+}
+
+/* Filters page
+*/
+
+.filters {
+  .selected {
+    background: darken($color1, 8%);
   }
 }
 
