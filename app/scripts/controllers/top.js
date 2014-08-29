@@ -55,7 +55,9 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
 
   angular.forEach(alltags, function (tag) {
     
-    if($.inArray(tag, $scope.tags) === -1) $scope.tags.push(tag);
+    if($.inArray(tag, $scope.tags) === -1) {
+      $scope.tags.push(tag);
+    }
 
   });
 
@@ -64,7 +66,7 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
     var prevTags = $location.search();
     var index = 0;
 
-    label = label.replace(/ /g,"_");
+    label = label.replace(/ /g,'_');
 
     if (prevTags.tags) {
 
@@ -87,7 +89,7 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
     }
 
     top.model.label = label;
-    
+
     $location.path('/intrebari').search({
       tags: label
     });
