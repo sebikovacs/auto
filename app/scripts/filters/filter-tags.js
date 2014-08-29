@@ -1,18 +1,22 @@
 app
   .filter('tagged', function() {
-    return function(input, labels) {
-
-      console.log(input, labels)
+    return function(input, tags) {
       
-      // input = input || '';
+      var out = [];
+      input = input || ''
+      tags = tags.replace(/\+/g,",").replace(/_/g," ").split(',');
 
-      // var out = [];
-      
-      // for (var i = 0; i < input.length; i++) {
-      //   out = input.charAt(i) + out;
-      // }
-      
+      angular.forEach(tags, function (tag) {
+        
+        angular.forEach(input, function (element) {
+          if (element.tags && element.tags.indexOf(tag) >= 0) {
 
-      // return out;
+            out.push(element);
+            
+          }
+        });
+      });
+
+      return out;
     };
   });
