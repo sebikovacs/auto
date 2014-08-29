@@ -43,7 +43,7 @@ $em-base: 16 !default;
 
 @mixin breakpoint($point) {
   @if $point == papa-bear {
-    @media (min-width: emCalc(978)) { @content; }
+    @media (min-width: emCalc(992)) { @content; }
   }
   @else if $point == mama-bear {
     @media (min-width: emCalc(767)) { @content; }

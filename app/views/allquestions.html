@@ -1,11 +1,11 @@
 <div class="quiz-question">
-  
+
   <div class="overlay-alert" ng-show="model.alert" ng-class="{'overlay-alert-success': model.valid, 'overlay-alert-danger': model.invalid}">
 
     <a ng-click="HideAlert()" href="" class="fa fa-times-circle"></a>
-    
+
     <div ng-show="model.valid">
-      
+
       <p> <span class="fa fa-check"></span> Raspuns corect</p>
       <a class="btn btn-default" ng-click="NextQuestion()">Urmatoarea intrebare</a>
 
@@ -14,7 +14,7 @@
     <div ng-show="model.invalid">
 
       <p> <span class="fa fa-times"></span> Raspuns gresit</p>
-      
+
       <a class="btn btn-default" ng-click="ShowRightAnswers()">Arata raspuns corect</a>
       <a class="btn btn-default" ng-click="NextQuestion()">Urmatoarea intrebare</a>
 
@@ -22,40 +22,44 @@
 
   </div>
 
-  <h2 class="question">#{{model.current}}. {{model.question.q}} 
-    <span 
-      class="fa fa-star-o" 
-      ng-click="StarQuestion()" 
+  <h2 class="question">
+    <span class="question-index">{{model.current}}</span>
+
+    {{model.question.q}}
+
+    <span
+      class="fa fa-star-o"
+      ng-click="StarQuestion()"
       ng-class="{'fa-star': model.starred, 'fa-star-o': !model.starred,}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"></span>
   </h2>
   <div class="image">
     <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
   </div>
-  
+
   <ol class="answers">
     <li ng-click="SetAnswer('a')" ng-class="{'selected':model.answers.a}">A. {{model.question.a}}</li>
     <li ng-click="SetAnswer('b')" ng-class="{'selected':model.answers.b}">B. {{model.question.b}}</li>
     <li ng-click="SetAnswer('c')" ng-class="{'selected':model.answers.c}">C. {{model.question.c}}</li>
   </ol>
-  
-  
+
+
   <div class="set-answers">
     <a class="btn btn-default btn-lg" ng-click="SetAnswer('a')" ng-class="{'btn-primary':model.answers.a}">A</a>
     <a class="btn btn-default btn-lg" ng-click="SetAnswer('b')" ng-class="{'btn-primary':model.answers.b}">B</a>
     <a class="btn btn-default btn-lg" ng-click="SetAnswer('c')" ng-class="{'btn-primary':model.answers.c}">C</a>
   </div>
-  
+
   <div class="buttons">
     <a class="prev" href="" ng-click="PrevQuestion()" ng-show="model.current > 1" >
       <span class="fa-chevron-left fa"></span>
     </a>
-    
+
     <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
-    
+
     <a class="next" href="" ng-click="NextQuestion()">
       <span class="fa-chevron-right fa"></span>
     </a>
   </div>
-  
+
 
 </div>

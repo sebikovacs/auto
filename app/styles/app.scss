@@ -13,15 +13,12 @@
 
 @import "theme";
 
-$blackColor: #2c3e50;
-$orangeColor: #e05430;
-$orbitron: 'Orbitron', sans-serif;
-$lato: 'Lato', sans-serif;
-$openSans: 'Open Sans', sans-serif;
-
+/* General
+ */
 
 html {
   height: 100%;
+
   body {
     height: 100%;
   }
@@ -29,40 +26,67 @@ html {
 
 .container-fluid {
   height: 100%;
+  margin: 0;
 
   >.row,
-  .sidebar,
   .app-content {
     height: 100%;
   }
 }
 
+/* Sidebar
+ */
+
+.container-fluid {
+
+  @include breakpoint(papa-bear) {
+    padding-left: 18%;
+  }
+
+}
+
+.sidebar {
+  padding: 30px 15px;
+  background: $color1;
+
+  @include breakpoint(papa-bear) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 9;
+
+    box-shadow: 2px 0 8px rgba(#000, .12);
+  }
+}
+
 .logo {
   display: block;
-  margin: 30px 0 20px;
+  margin: 0 0 20px;
 
   img {
-    max-width: 100%;
+    max-width: 92%;
   }
 }
 
 .nav-stacked {
-  margin-top: 20px;
+  padding-top: 20px;
+  margin: 0 -15px;
 
-  li {
-    a {
-      @include clearfix;
+  li > a {
+    @include clearfix;
+    border-radius: 0;
 
-      border: 1px solid #ccc;
-      span {
-        float: right;
-      }
+    color: #fff;
+
+    &:hover {
+      background: darken($color1, 8%);
     }
   }
 }
 
 .quiz-question {
-  padding: 40px 0 0 0;
+  padding: 40px 0 0 40px;
   height: 100%;
 
   .image {
@@ -72,9 +96,11 @@ html {
 }
 
 h2.question {
-  margin: 0 auto 30px;
-  text-align: center;
-  width: 820px;
+  position: relative;
+  margin: 0 0 30px;
+  padding: 0 10px;
+
+  text-align: left;
 
   span.fa {
     color: rgb(231, 221, 99);
@@ -85,11 +111,26 @@ h2.question {
   }
 }
 
+.question-index {
+  position: absolute;
+  left: -36px;
+  top: 0;
+  background: darken($colorBg, 8%);
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+
+  color:  darken($colorBg, 32%);
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 32px;
+  text-align: center;
+}
+
 .answers {
   list-style-type: none;
   padding: 0;
   margin: 0 auto 30px;
-  max-width: 820px;
   font-size: 20px;
 
   li {
@@ -102,6 +143,7 @@ h2.question {
     color: #fff;
   }
 }
+
 
 .set-answers {
   text-align: center;
@@ -135,8 +177,10 @@ h2.question {
 }
 
 .overlay-alert {
-  font-family: 'Lato', sans-serif;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
   width: 100%;
   height: 100%;
   text-align: center;
