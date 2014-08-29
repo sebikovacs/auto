@@ -8,15 +8,13 @@
     Autoquiz - Chestionare auto cu toate intrebarile
   </title>
   <meta name="description" content="Chestionare auto cu toate intrebarile">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="//fonts.googleapis.com/css?family=Orbitron:400,500,700,900" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
 
-  <link rel="stylesheet" href="/styles/0a83f8f6.website.css">
-  
+  <link rel="stylesheet" href="/styles/fe244c97.website.css">
+
   <style>
     /* Hack to fix number precission issue, until node-sass supports it
     * number precision should be 10
@@ -26,9 +24,6 @@
     line-height: 1.42857143 !important;
   }
   </style>
-  
-<!--   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
-  
 </head>
 <body>
 
@@ -38,34 +33,135 @@
 
   
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4 tmp-header">
-      <img src="images/logo.png" class="logo">
-      <a class="btn btn-primary btn-lg" href="app.html#/chestionar">Chestionare auto categoria B - toate intrebarile</a>
+<div class="container-narrow">
+
+  <header class="row header">
+
+    <div class="col-sm-6">
+
+      <a href="/" class="logo-site">
+        <img src="images/logo.png" alt="AutoQuiz">
+      </a>
+
     </div>
+
+    <div class="col-sm-6">
+
+      <ul class="list-inline pull-right">
+        <li>
+          <a href="mailto:contact@autoquiz.net">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </header>
+
+  <div class="jumbotron promo-home">
+    <h1>
+      Invață rapid pentru examenul auto.
+    </h1>
+    <p class="lead">
+      Chestionare auto inteligente care te ajută cu adevărat.
+    </p>
+    <p>
+      <a class="btn btn-lg btn-primary" href="/app.html#/chestionar" role="button">
+        <i class="fa fa-check-circle-o"></i>
+
+        Începe chestionar!
+      </a>
+    </p>
   </div>
+
+  <div class="row features">
+
+    <div class="col-sm-4 feature-box">
+
+      <i class="fa fa-star"></i>
+
+      <h4>
+        Marcare întrebări
+      </h4>
+      <p>
+        AutoQuiz îți permite să marchezi întrebările importante, sau la care ai probleme, pentru a putea revenii rapid la ele.
+      </p>
+
+    </div>
+
+    <div class="col-sm-4 feature-box">
+
+      <i class="fa fa-sort-amount-asc"></i>
+
+      <h4>
+        Unde ai rămas
+      </h4>
+      <p>
+        Sistemul nostru reține intrebarea la care ai ramas, chiar dacă ai inchis browserul.
+      </p>
+
+    </div>
+
+    <div class="col-sm-4 feature-box">
+
+      <i class="fa fa-bar-chart"></i>
+
+      <h4>
+        Statistici
+      </h4>
+      <p>
+        Toate intrebările greșite, sau corecte, sunt reținute de AutoQuiz, astfel poți observa cu ușurință la care ai probleme.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="row cta-2">
+
+    <div class="col-sm-12">
+
+      Incearca acum un chestionar rapid
+
+      <a href="/app.html" class="btn btn-success">
+        Incepe chestionar!
+      </a>
+
+    </div>
+
+  </div>
+
+  <footer class="row footer">
+
+    <div class="col-xs-6">
+
+      <ul class="list-inline">
+        <li>
+          <a href="mailto:contact@autoquiz.net">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="col-xs-6">
+
+      <p class="copy pull-right">
+        © 2014 AutoQuiz.net.
+      </p>
+
+    </div>
+
+  </footer>
+
 </div>
 
 
-  <script src="/scripts/c5779c3d.plugins.js"></script>
+  <script src="/scripts/db02b173.plugins.js"></script>
 
   <script src="/scripts/6eb2d991.website.js"></script>
-  
-  <script>
-  
-  (function(){
-
-    $('.bs-component [data-toggle="popover"]').popover();
-    $('.bs-component [data-toggle="tooltip"]').tooltip();
-    
-    // bootstrap-select
-    $('.selectpicker').selectpicker({
-    });
-
-  })();
-  
-  </script>
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -75,8 +171,7 @@
 
   ga('create', 'UA-2294103-8', 'auto');
   ga('send', 'pageview');
-
-</script>
+  </script>
 
 </body>
 </html>
