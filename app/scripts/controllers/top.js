@@ -1,11 +1,11 @@
-app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $q, data) {
+app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $q, data, taggedFilter) {
   'use strict';
 
   var top = $scope.top = {};
   var storage = window.localStorage;
 
   top.model = {
-    questions: {}
+    questions: {},
   };
 
   $scope.StoreData = function () {
@@ -19,13 +19,14 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
     if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
 
       top.model.questions = angular.extend(top.model.questions, JSON.parse(storage.getItem('questions')));
-      
 
     } else {
 
       data.GetQuestions({}).then(function (res) {
         
         top.model.questions.all = res;
+
+        console.log(top.model.questions);
         
         //Store questions to localStorage
         $scope.StoreData();
@@ -34,6 +35,10 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
         
       });    
     }
+    
+    top.model.correct   = taggedFilter(top.model.questions.all, 'corect').length;
+    top.model.incorrect = taggedFilter(top.model.questions.all, 'incorect').length;
+    top.model.starred   = taggedFilter(top.model.questions.all, 'starred').length;
 
   };
 

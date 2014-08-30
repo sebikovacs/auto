@@ -16,9 +16,6 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   //model.questions.current = parseInt($routeParams.id, 10);
   
   model.questions = {
-    correct: [],
-    incorrect: [],
-    starred: [],
     current: parseInt($routeParams.id, 10)
   };
 
@@ -92,6 +89,11 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
       model.question = findObjectById(model.current);
 
+      // Set star if starred
+      if (model.question.tags.indexOf('starred') >= 0) {
+        model.starred = true;
+      }
+
 
     } else {
 
@@ -100,7 +102,12 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
         model.questions.all = res;
         model.question = findObjectById(model.current);
 
-        //Store questions to localStorage
+        // Set star if starred
+        if (model.question.tags.indexOf('starred') >= 0) {
+          model.starred = true;
+        }
+
+        // Store questions to localStorage
         $scope.StoreData();
 
       }, function (err) {
@@ -110,18 +117,25 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
       });    
     }
 
+    
+
   };
 
   model.initQuestionsModel();
 
   $scope.StarQuestion = function () {
+    var index = model.question.tags.indexOf('starred');
 
     model.starred = !model.starred;
 
-    if (!findObjectsInArray(model.questions.starred, model.question)) {
-      model.questions.starred.push(model.question);
+    if (index < 0) {
+
+      model.question.tags.push('starred');
+
     } else {
-      model.questions.starred.splice(findObjectsInArray(model.questions.starred, model.question, true), 1);
+
+      model.question.tags.splice(index, 1);
+
     }
 
     $scope.StoreData();
