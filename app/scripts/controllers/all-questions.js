@@ -140,6 +140,8 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
     $scope.StoreData();
 
+    $scope.$emit('$answersUpdate');
+
   };
 
   $scope.StoreData = function () {
