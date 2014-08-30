@@ -93,16 +93,5 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
     });
     
   };
-
-  // Tagging
-
-  // aici preluam clickurile pe label
-  // formatam url-ul cu mai multe labeluri daca se poate
-  // trimitem mai departe cu location
-  // adaugam un selected la label-ul selectat
-
-  // in tagcontroller
-  // descalcim url-ul
-  // filtram intrebarile in functie de taguri
   
 });

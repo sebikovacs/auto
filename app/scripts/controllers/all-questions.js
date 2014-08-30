@@ -23,7 +23,6 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.current = parseInt($routeParams.id, 10);
-
   model.starred = false;
 
   // Helper method
@@ -86,8 +85,6 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.initQuestionsModel = function () {
-    
-    
 
     if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
       
@@ -149,6 +146,12 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     
     var correctAnswers = model.question.v.split(' ');
     var setAnswers = [];
+    var index = 0;
+
+    // set tag array if not found
+    if (!model.question.tags) {
+      model.question.tags = [];
+    }
     
     angular.forEach(model.answers, function (value, key) {
       if (value) {
@@ -172,30 +175,45 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
     
     if (!model.valid) {
-      
-      if (!findObjectsInArray(model.questions.incorrect, model.question)) {
-        model.questions.incorrect.push(model.question);
 
+      // index = model.question.tags.indexOf('corect');
+      
+      // //remove previously set correct answer
+      // if (index >= 0) {
+      //   model.question.tags.splice(index, 1);
+      // }
+
+      if (model.question.tags.indexOf('incorect') < 0) {
+        model.question.tags.push('incorect');
       }
+      
 
     } else {
       
-      if (!findObjectsInArray(model.questions.correct, model.question)) {
-        model.questions.correct.push(model.question);
+      // index = model.question.tags.indexOf('incorect');
+      
+      // //remove previously set correct answer
+      // if (index >= 0) {
+      //   model.question.tags.splice(index, 1);
+      // }
+      
+      if (model.question.tags.indexOf('corect') < 0) {
+        model.question.tags.push('corect');
       }
 
       $timeout(function () {
         
         model.alert = false;
+        model.starred = false;
         
         $scope.NextQuestion();
         $scope.$emit('$answersUpdate');
 
-        model.starred = false;
-
       }, 3000);
 
     }
+
+    console.log(model.question);
 
     $scope.StoreData();
   };
