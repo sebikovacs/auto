@@ -4,8 +4,10 @@ app.filter('tagged', function() {
     return function(input, tags) {
       
       var out = [];
+      
       input = input || '';
-      tags = tags.replace(/\+/g,',').replace(/_/g,' ').split(',');
+      tags = tags || '';
+      tags = tags.replace(/\+/g,",").replace(/_/g," ").split(',');
 
       angular.forEach(tags, function (tag) {
         

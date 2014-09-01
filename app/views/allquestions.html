@@ -26,11 +26,11 @@
     <span class="question-index">{{model.current}}</span>
 
     {{model.question.q}}
-
+    
     <span
-      class="fa fa-star-o"
+      class="fa "
       ng-click="StarQuestion()"
-      ng-class="{'fa-star': model.starred, 'fa-star-o': !model.starred,}" ng-mouseenter="hover = true" ng-mouseleave="hover = false"></span>
+       ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-class="{true: 'fa-star', false:'fa-star-o'}[model.starred]"></span>
   </h2>
   <div class="image">
     <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">

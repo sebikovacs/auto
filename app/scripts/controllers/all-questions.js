@@ -16,14 +16,10 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   //model.questions.current = parseInt($routeParams.id, 10);
   
   model.questions = {
-    correct: [],
-    incorrect: [],
-    starred: [],
     current: parseInt($routeParams.id, 10)
   };
 
   model.current = parseInt($routeParams.id, 10);
-
   model.starred = false;
 
   // Helper method
@@ -86,14 +82,17 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.initQuestionsModel = function () {
-    
-    
 
     if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
       
       model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
 
       model.question = findObjectById(model.current);
+
+      // Set star if starred
+      if (model.question.tags.indexOf('starred') >= 0) {
+        model.starred = true;
+      }
 
 
     } else {
@@ -103,7 +102,12 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
         model.questions.all = res;
         model.question = findObjectById(model.current);
 
-        //Store questions to localStorage
+        // Set star if starred
+        if (model.question.tags.indexOf('starred') >= 0) {
+          model.starred = true;
+        }
+
+        // Store questions to localStorage
         $scope.StoreData();
 
       }, function (err) {
@@ -113,21 +117,30 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
       });    
     }
 
+    
+
   };
 
   model.initQuestionsModel();
 
   $scope.StarQuestion = function () {
+    var index = model.question.tags.indexOf('starred');
 
     model.starred = !model.starred;
 
-    if (!findObjectsInArray(model.questions.starred, model.question)) {
-      model.questions.starred.push(model.question);
+    if (index < 0) {
+
+      model.question.tags.push('starred');
+
     } else {
-      model.questions.starred.splice(findObjectsInArray(model.questions.starred, model.question, true), 1);
+
+      model.question.tags.splice(index, 1);
+
     }
 
     $scope.StoreData();
+
+    $scope.$emit('$answersUpdate');
 
   };
 
@@ -149,6 +162,12 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
     
     var correctAnswers = model.question.v.split(' ');
     var setAnswers = [];
+    var index = 0;
+
+    // set tag array if not found
+    if (!model.question.tags) {
+      model.question.tags = [];
+    }
     
     angular.forEach(model.answers, function (value, key) {
       if (value) {
@@ -172,30 +191,45 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
     
     if (!model.valid) {
-      
-      if (!findObjectsInArray(model.questions.incorrect, model.question)) {
-        model.questions.incorrect.push(model.question);
 
+      // index = model.question.tags.indexOf('corect');
+      
+      // //remove previously set correct answer
+      // if (index >= 0) {
+      //   model.question.tags.splice(index, 1);
+      // }
+
+      if (model.question.tags.indexOf('incorect') < 0) {
+        model.question.tags.push('incorect');
       }
+      
 
     } else {
       
-      if (!findObjectsInArray(model.questions.correct, model.question)) {
-        model.questions.correct.push(model.question);
+      // index = model.question.tags.indexOf('incorect');
+      
+      // //remove previously set correct answer
+      // if (index >= 0) {
+      //   model.question.tags.splice(index, 1);
+      // }
+      
+      if (model.question.tags.indexOf('corect') < 0) {
+        model.question.tags.push('corect');
       }
 
       $timeout(function () {
         
         model.alert = false;
+        model.starred = false;
         
         $scope.NextQuestion();
         $scope.$emit('$answersUpdate');
 
-        model.starred = false;
-
       }, 3000);
 
     }
+
+    console.log(model.question);
 
     $scope.StoreData();
   };
