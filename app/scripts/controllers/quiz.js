@@ -1,10 +1,18 @@
-app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $q, data) {
+app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $q, data) {
 	'use strict';
 
   var model = $scope.model = {};
   //var root = $scope.root;
   var storage = window.localStorage;
   //var top = $scope.top;
+
+  var category = $routeParams.cat;
+  var questionsForCat = {
+    a: 16,
+    b: 26
+  };
+
+  var questionsNumber = questionsForCat[category];
 
   model.answers = {
     a: false,
@@ -13,7 +21,11 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
   };
 
   model.alert = false;
-  //model.questions.current = parseInt($routeParams.id, 10);
+  model.quiz = [];
+
+  var getRandomInt = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
   
   model.questions = {
     current: parseInt($routeParams.id, 10)
@@ -85,27 +97,32 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
 
     if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
       
-      model.questions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
+      var allQuestions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
+      model.questions = allQuestions[category];
 
-      model.question = findObjectById(model.current);
-
-      // Set star if starred
-      if (model.question.tags.indexOf('starred') >= 0) {
-        model.starred = true;
+      for (var i = questionsNumber; i > 0; i--) {
+        model.quiz.push(model.questions[getRandomInt(0, model.questions.length)]);
       }
+
+      model.question = model.quiz[0];
+
+      // // Set star if starred
+      // if (model.question.tags.indexOf('starred') >= 0) {
+      //   model.starred = true;
+      // }
 
 
     } else {
 
       data.GetQuestions({}).then(function (res) {
         
-        model.questions.all = res;
-        model.question = findObjectById(model.current);
+        model.questions = res;
+        //model.question = findObjectById(model.current);
 
         // Set star if starred
-        if (model.question.tags.indexOf('starred') >= 0) {
-          model.starred = true;
-        }
+        // if (model.question.tags.indexOf('starred') >= 0) {
+        //   model.starred = true;
+        // }
 
         // Store questions to localStorage
         $scope.StoreData();
@@ -116,12 +133,11 @@ app.controller('AllQuestionsCtrl', function($rootScope, $scope, $routeParams, $l
         
       });    
     }
-
-    
-
   };
 
   model.initQuestionsModel();
+
+  
 
   $scope.StarQuestion = function () {
     var index = model.question.tags.indexOf('starred');

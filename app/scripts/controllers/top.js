@@ -46,7 +46,7 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
     initQuestionsModel();
   });
 
-  initQuestionsModel();
+  //initQuestionsModel();
 
   // extract an array of tags
   var alltags = [];

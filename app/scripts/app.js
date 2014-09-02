@@ -8,6 +8,11 @@ var app = angular.module('autohack', [
 	'use strict';
 
 	$routeProvider
+	.when('/quiz', {
+		templateUrl: 'views/question.html',
+		controller: 'QuizCtrl',
+		reloadOnSearch: false
+	})
 	.when('/chestionar/:id', {
 		templateUrl: 'views/allquestions.html',
 		controller: 'AllQuestionsCtrl',
