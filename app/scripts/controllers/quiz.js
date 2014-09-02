@@ -31,7 +31,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     current: parseInt($routeParams.id, 10)
   };
 
-  model.current = parseInt($routeParams.id, 10);
+  model.current = 1;
   model.starred = false;
 
   // Helper method
@@ -238,7 +238,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
         model.alert = false;
         model.starred = false;
         
-        $scope.NextQuestion();
+        $scope.NextQuestionInQuiz();
         $scope.$emit('$answersUpdate');
 
       }, 3000);
@@ -263,6 +263,20 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     model.starred = false;
 
     $location.path('chestionar/'+ nextId);
+    
+  };
+
+  $scope.NextQuestionInQuiz = function () {
+
+    model.question = model.quiz[model.current + 1];
+
+    $scope.StoreData();
+
+    $scope.ResetAnsweres();
+
+    model.starred = false;
+
+    //$location.path('chestionar/'+ nextId);
     
   };
 
