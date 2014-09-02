@@ -36,24 +36,24 @@
         <a href="#/chestionar/1">Home</a>
       </li>
       <li>
-        <a href="#/intrebari/toate">Toate <span class="label label-default">{{top.model.questions.all.length}}</span></a>
+        <a href="#/intrebari">Toate <span class="label label-default">{{top.model.questions.all.length}}</span></a>
       </li>
       <!-- <li>
         <a href="">Parcurse <span class="label label-default">{{top.model.current}}</span></a>
       </li> -->
       <li>
-        <a href="#/intrebari/corecte">Corecte:
-          <span class="label label-success">{{top.model.questions.correct.length}}</span>
+        <a href="#/intrebari?tags=corect">Corectes:
+          <span class="label label-success">{{top.model.correct}}</span>
         </a>
       </li>
       <li>
-        <a href="#/intrebari/gresite">Incorecte:
-          <span class="label label-danger">{{top.model.questions.incorrect.length}}</span>
+        <a href="#/intrebari?tags=incorect">Incorecte:
+          <span class="label label-danger">{{top.model.incorrect}}</span>
         </a>
       </li>
       <li>
-        <a href="#/intrebari/marcate">Marcate:
-          <span class="label label-warning">{{top.model.questions.starred.length}}</span>
+        <a href="#/intrebari?tags=starred">Marcate:
+          <span class="label label-warning">{{top.model.starred}}</span>
         </a>
       </li>
       <li>
@@ -87,7 +87,7 @@
   </div>
   <script src="/scripts/b66eaba1.plugins-app.js"></script>
 
-  <script src="/scripts/fa358fdc.app.js"></script>
+  <script src="/scripts/0173c08f.app.js"></script>
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
