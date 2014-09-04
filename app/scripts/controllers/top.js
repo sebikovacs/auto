@@ -26,8 +26,6 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
         
         top.model.questions.all = res;
 
-        console.log(top.model.questions);
-        
         //Store questions to localStorage
         $scope.StoreData();
 
@@ -43,7 +41,7 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
   };
 
   $scope.$on('$answersUpdate', function () {
-    initQuestionsModel();
+    //initQuestionsModel();
   });
 
   //initQuestionsModel();

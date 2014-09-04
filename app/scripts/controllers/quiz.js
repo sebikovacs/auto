@@ -7,12 +7,24 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   //var top = $scope.top;
 
   var category = $routeParams.cat;
-  var questionsForCat = {
-    a: 16,
-    b: 26
+  var quizLimits = {
+    a: {
+      min: 17,
+      max: 20
+    },
+    b: {
+      min: 22,
+      max: 26
+    },
+    c: {
+      min: 9,
+      max: 11
+    },
+    d: {
+      min: 22,
+      max: 26
+    }
   };
-
-  var questionsNumber = questionsForCat[category];
 
   model.answers = {
     a: false,
@@ -27,12 +39,57 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
   
-  model.questions = {
-    current: parseInt($routeParams.id, 10)
-  };
+  model.questions = [];
+  model.questionsForCat = [];
 
   model.current = 1;
   model.starred = false;
+
+
+  $scope.StartQuiz = function () {
+    
+    // create a list of questions for the quiz
+    for (var i = quizLimits[category].max; i > 0; i--) {
+      model.quiz.push(model.questionsForCat[getRandomInt(0, model.questionsForCat.length)]);
+    }
+
+    model.question = model.quiz[0];
+
+  };
+
+  model.initQuestionsModel = function () {
+
+    var questions = JSON.parse(storage.getItem('questions'));
+    
+    if (questions) {
+      
+      model.questions = questions;
+      model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
+
+      $scope.StartQuiz();
+
+    } else {
+
+      data.GetQuestions()
+        .then(function (res) {
+          
+          model.questions = res;
+          model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
+
+          $scope.StartQuiz();
+
+          $scope.StoreData();
+
+
+        }).catch(function (err) {
+          
+          console.log(err);
+
+        });
+    }
+  };
+
+  model.initQuestionsModel();
 
   // Helper method
   var findObjectsInArray = function (arr, obj, index) {
@@ -92,52 +149,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     return nextId;
   };
-
-  model.initQuestionsModel = function () {
-
-    if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
-      
-      var allQuestions = angular.extend(model.questions, JSON.parse(storage.getItem('questions')));
-      model.questions = allQuestions[category];
-
-      for (var i = questionsNumber; i > 0; i--) {
-        model.quiz.push(model.questions[getRandomInt(0, model.questions.length)]);
-      }
-
-      model.question = model.quiz[0];
-
-      // // Set star if starred
-      // if (model.question.tags.indexOf('starred') >= 0) {
-      //   model.starred = true;
-      // }
-
-
-    } else {
-
-      data.GetQuestions({}).then(function (res) {
-        
-        model.questions = res;
-        //model.question = findObjectById(model.current);
-
-        // Set star if starred
-        // if (model.question.tags.indexOf('starred') >= 0) {
-        //   model.starred = true;
-        // }
-
-        // Store questions to localStorage
-        $scope.StoreData();
-
-      }, function (err) {
-
-        console.log(err);
-        
-      });    
-    }
-  };
-
-  model.initQuestionsModel();
-
-  
 
   $scope.StarQuestion = function () {
     var index = model.question.tags.indexOf('starred');
@@ -233,7 +244,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
         model.question.tags.push('corect');
       }
 
-      $timeout(function () {
+      model.timeout = $timeout(function () {
         
         model.alert = false;
         model.starred = false;
@@ -244,8 +255,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       }, 3000);
 
     }
-
-    console.log(model.question);
 
     $scope.StoreData();
   };
@@ -269,12 +278,16 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   $scope.NextQuestionInQuiz = function () {
 
     model.question = model.quiz[model.current + 1];
+    model.current = model.current + 1;
+
+    clearTimeout(model.timeout);
 
     $scope.StoreData();
 
     $scope.ResetAnsweres();
 
     model.starred = false;
+    model.alert = false;
 
     //$location.path('chestionar/'+ nextId);
     
