@@ -6,17 +6,19 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   var storage = window.localStorage;
   //var top = $scope.top;
 
-  model.timer = {
-    minutes: moment().minutes(),
-    seconds: moment().seconds()
-  };
+  var d = new Date().getTime();
+  var f = new Date(d + 30 * 60 * 1000);
 
   var interval = $interval(function () {
+    d = new Date().getTime();
+    var secondsLeft = moment(f-d).seconds();
+    var minutesLeft = moment(f-d).minutes();
+
     model.timer = {
-      minutes: moment().minutes(),
-      seconds: moment().seconds()
-    }
-  }, 1000)
+      minutes: minutesLeft,
+      seconds: secondsLeft
+    };
+  }, 1000);
 
   var category = $routeParams.cat;
   var quizLimits = {

@@ -32,8 +32,8 @@
       ng-click="StarQuestion()"
        ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-class="{true: 'fa-star', false:'fa-star-o'}[model.starred]"></span>
   </h2>
-  <div>
-    <h3>timer</h3>
+  <div class="toolbar">
+    <span class="fa fa-clock-o"></span>
     <strong>{{model.timer.minutes}}:{{model.timer.seconds}}</strong>
   </div>
   <div class="image">
