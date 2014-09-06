@@ -29,7 +29,7 @@ var app = angular.module('autohack', [
 		reloadOnSearch: false
 	})
 	.otherwise({
-		redirectTo: '/chestionar/1'
+		redirectTo: '/quiz'
 	});
 
 });
