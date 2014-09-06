@@ -32,6 +32,10 @@
       ng-click="StarQuestion()"
        ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-class="{true: 'fa-star', false:'fa-star-o'}[model.starred]"></span>
   </h2>
+  <div>
+    <h3>timer</h3>
+    <strong>{{model.timer.minutes}}:{{model.timer.seconds}}</strong>
+  </div>
   <div class="image">
     <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
   </div>

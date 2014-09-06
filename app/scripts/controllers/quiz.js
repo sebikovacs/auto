@@ -1,10 +1,22 @@
-app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $q, data) {
+app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $interval, $q, data) {
 	'use strict';
 
   var model = $scope.model = {};
   //var root = $scope.root;
   var storage = window.localStorage;
   //var top = $scope.top;
+
+  model.timer = {
+    minutes: moment().minutes(),
+    seconds: moment().seconds()
+  };
+
+  var interval = $interval(function () {
+    model.timer = {
+      minutes: moment().minutes(),
+      seconds: moment().seconds()
+    }
+  }, 1000)
 
   var category = $routeParams.cat;
   var quizLimits = {
@@ -245,7 +257,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       }
 
       model.timeout = $timeout(function () {
-        
+        console.log('timeout')
         model.alert = false;
         model.starred = false;
         
@@ -280,7 +292,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     model.question = model.quiz[model.current + 1];
     model.current = model.current + 1;
 
-    clearTimeout(model.timeout);
+    $timeout.cancel(model.timeout);
 
     $scope.StoreData();
 
