@@ -259,7 +259,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       }
 
       model.timeout = $timeout(function () {
-        console.log('timeout')
+        
         model.alert = false;
         model.starred = false;
         
@@ -295,7 +295,14 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   $scope.NextQuestionInQuiz = function () {
 
-    model.question = model.quiz[model.current + 1];
+    
+
+    if (model.quiz[model.current + 1]) {
+      model.question = model.quiz[model.current + 1];  
+    } else {
+      model.splash = true;
+    }
+
     model.current = model.current + 1;
 
     $timeout.cancel(model.timeout);
@@ -309,11 +316,18 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     model.statistics.corect = taggedFilter(model.quiz, 'corect');
     model.statistics.incorect = taggedFilter(model.quiz, 'incorect');
-    console.log(model.statistics.incorect);
-    console.log((quizLimits[category].max - quizLimits[category].min));
+    
+    // Stop quiz if failed answers exceeds limit per category
     if (model.statistics.incorect.length > (quizLimits[category].max - quizLimits[category].min)) {
       model.splash = true;
     }
+
+
+    // Stop quiz if user has reached last question
+
+
+
+
   };
 
   $scope.PrevQuestion = function () {
