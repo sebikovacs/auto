@@ -1,4 +1,4 @@
-app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $interval, $q, data) {
+app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $interval, $q, data, taggedFilter) {
 	'use strict';
 
   var model = $scope.model = {};
@@ -289,6 +289,10 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     
   };
 
+  model.statistics = {
+
+  };
+
   $scope.NextQuestionInQuiz = function () {
 
     model.question = model.quiz[model.current + 1];
@@ -303,7 +307,9 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     model.starred = false;
     model.alert = false;
 
-    //$location.path('chestionar/'+ nextId);
+    model.statistics.corect = taggedFilter(model.quiz, 'corect');
+    model.statistics.incorect = taggedFilter(model.quiz, 'incorect');
+    console.log(model.statistics);
     
   };
 

@@ -22,6 +22,18 @@
 
   </div>
 
+  <div class="toolbar">
+    <span class="fa fa-check"></span>:
+    <span>{{model.statistics.corect.length || 0}}</span>
+
+    <span class="fa fa-times"></span>:
+    <span>{{model.statistics.incorect.length || 0}}</span>
+
+    <span class="fa fa-clock-o"></span>
+    <strong>{{model.timer.minutes}}:{{model.timer.seconds}}</strong>
+
+  </div>
+
   <h2 class="question">
     <span class="question-index">{{model.current}}</span>
 
@@ -32,10 +44,7 @@
       ng-click="StarQuestion()"
        ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-class="{true: 'fa-star', false:'fa-star-o'}[model.starred]"></span>
   </h2>
-  <div class="toolbar">
-    <span class="fa fa-clock-o"></span>
-    <strong>{{model.timer.minutes}}:{{model.timer.seconds}}</strong>
-  </div>
+  
   <div class="image">
     <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
   </div>
