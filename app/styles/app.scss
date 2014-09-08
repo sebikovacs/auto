@@ -222,11 +222,11 @@ h2.question {
   }
 
   &.overlay-alert-success {
-    background: rgb(75, 167, 101);
+    background: $colorSuccess;
   }
 
   &.overlay-alert-danger {
-    background: #C74848;
+    background: $colorFail;
   }
 }
 
@@ -251,4 +251,37 @@ h2.question {
     background: darken($color1, 8%);
   }
 }
+
+/* Quiz statistics
+*/
+.toolbar {
+  @include clearfix;
+  position: fixed;
+  left: 50%;
+  top: 0;
+  background: #fff;
+  width: 415px;
+  margin-left: -212px;
+  box-shadow: rgba(0,0,0,.6) 0px 1px 1px;
+  z-index: 15;
+
+  .separator {
+    padding: 5px 10px;
+    float: left;
+    border-right: 1px solid #ccc;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  .fa-check {
+    color: $colorSuccess;
+  }
+
+  .fa-times {
+    color: $colorFail;
+  }
+}
+
+
 

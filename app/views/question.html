@@ -23,14 +23,22 @@
   </div>
 
   <div class="toolbar">
-    <span class="fa fa-check"></span>:
-    <span>{{model.statistics.corect.length || 0}}</span>
+    <div class="separator">
+      <span class="fa fa-check"></span>
+      <span>Raspunsuri corecte: </span>
+      <span>{{model.statistics.corect.length || 0}}</span>
+    </div>
 
-    <span class="fa fa-times"></span>:
-    <span>{{model.statistics.incorect.length || 0}}</span>
+    <div class="separator">
+      <span class="fa fa-times"></span>
+      <span>Raspunsuri gresite: </span>
+      <span>{{model.statistics.incorect.length || 0}}</span>
+    </div>
 
-    <span class="fa fa-clock-o"></span>
-    <strong>{{model.timer.minutes}}:{{model.timer.seconds}}</strong>
+    <div class="separator">
+      <span class="fa fa-clock-o"></span>
+      <strong>{{model.timer.minutes}}:{{model.timer.seconds}}</strong>
+    </div>
 
   </div>
 
