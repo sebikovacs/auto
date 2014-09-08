@@ -309,8 +309,11 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     model.statistics.corect = taggedFilter(model.quiz, 'corect');
     model.statistics.incorect = taggedFilter(model.quiz, 'incorect');
-    console.log(model.statistics);
-    
+    console.log(model.statistics.incorect);
+    console.log((quizLimits[category].max - quizLimits[category].min));
+    if (model.statistics.incorect.length > (quizLimits[category].max - quizLimits[category].min)) {
+      model.splash = true;
+    }
   };
 
   $scope.PrevQuestion = function () {
