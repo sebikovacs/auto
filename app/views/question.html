@@ -82,7 +82,24 @@
     </a>
   </div>
   <div class="splash" ng-show="model.splash">
-    <h1>Ati fost declarat ADMIS la examenul teoretic</h1>
+    <h1 ng-if="model.quizValid">Ati fost declarat ADMIS la examenul teoretic</h1>
+    <h1 ng-if="!model.quizValid">Ati fost declarat RESPINS la examenul teoretic</h1>
+
+
+    <h3 ng-show="model.statistics.corect.length">Intrebari la care ati raspuns corect</h3>
+    <ul ng-show="model.statistics.corect.length">
+      <li ng-repeat="answer in model.statistics.corect">
+        <a href="">{{answer.q}}</a>
+      </li>
+    </ul>
+
+    <h3 ng-show="model.statistics.incorect.length">Intrebari la care ati raspuns gresit</h3>
+    <ul ng-show="model.statistics.incorect.length">
+      <li ng-repeat="answer in model.statistics.incorect">
+        <a href="">{{answer.q}}</a>
+      </li>
+    </ul>
+
   </div>
 
 </div>

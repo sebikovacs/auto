@@ -1,26 +1,11 @@
 app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $interval, $q, data, taggedFilter) {
 	'use strict';
 
+  // private params
   var model = $scope.model = {};
-  //var root = $scope.root;
   var storage = window.localStorage;
-  //var top = $scope.top;
-
-  var d = new Date().getTime();
-  var f = new Date(d + 30 * 60 * 1000);
-
-  var interval = $interval(function () {
-    d = new Date().getTime();
-    var secondsLeft = moment(f-d).seconds();
-    var minutesLeft = moment(f-d).minutes();
-
-    model.timer = {
-      minutes: minutesLeft,
-      seconds: secondsLeft
-    };
-  }, 1000);
-
   var category = $routeParams.cat;
+
   var quizLimits = {
     a: {
       min: 17,
@@ -40,19 +25,11 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     }
   };
 
-  model.answers = {
-    a: false,
-    b: false,
-    c: false,
-  };
-
-  model.alert = false;
-  model.quiz = [];
-
-  var getRandomInt = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
+  // public params
+  model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
+  model.answers = { a: false, b: false, c: false };
   
+  model.quiz = [];
   model.questions = [];
   model.questionsForCat = [];
 
@@ -60,52 +37,27 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   model.starred = false;
 
 
-  $scope.StartQuiz = function () {
-    
-    // create a list of questions for the quiz
-    for (var i = quizLimits[category].max; i > 0; i--) {
-      model.quiz.push(model.questionsForCat[getRandomInt(0, model.questionsForCat.length)]);
-    }
-
-    model.question = model.quiz[0];
-
+  // Private helper methods
+  var getRandomInt = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  model.initQuestionsModel = function () {
+  var startTimer = function () {
+    var d = new Date().getTime();
+    var f = new Date(d + 30 * 60 * 1000);
 
-    var questions = JSON.parse(storage.getItem('questions'));
-    
-    if (questions) {
-      
-      model.questions = questions;
-      model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
+    var interval = $interval(function () {
+      d = new Date().getTime();
+      var secondsLeft = moment(f-d).seconds();
+      var minutesLeft = moment(f-d).minutes();
 
-      $scope.StartQuiz();
-
-    } else {
-
-      data.GetQuestions()
-        .then(function (res) {
-          
-          model.questions = res;
-          model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
-
-          $scope.StartQuiz();
-
-          $scope.StoreData();
-
-
-        }).catch(function (err) {
-          
-          console.log(err);
-
-        });
-    }
+      model.timer = {
+        minutes: minutesLeft,
+        seconds: secondsLeft
+      };
+    }, 1000);
   };
 
-  model.initQuestionsModel();
-
-  // Helper method
   var findObjectsInArray = function (arr, obj, index) {
     var flag = false;
     var i;
@@ -164,6 +116,78 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     return nextId;
   };
 
+  // Init
+  model.initQuestionsModel = function () {
+
+    var questions = JSON.parse(storage.getItem('questions'));
+    
+    if (questions) {
+      
+      model.questions = questions;
+      model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
+
+      $scope.StartQuiz();
+
+    } else {
+
+      data.GetQuestions()
+        .then(function (res) {
+          
+          model.questions = res;
+          model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
+
+          $scope.StartQuiz();
+
+          $scope.StoreData();
+
+
+        }).catch(function (err) {
+          
+          console.log(err);
+
+        });
+    }
+  };
+
+  // Event methods
+  $scope.StartQuiz = function () {
+    var random, question, i, seenTag, corectTag, incorectTag;
+
+    // create a list of random questions for the quiz
+    while (model.quiz.length <= quizLimits[category].max) {
+
+      random = getRandomInt(0, model.questionsForCat.length);
+      question = model.questionsForCat[random];
+
+      if (!question.tags) {
+        
+        question.tags = [];
+        model.quiz.push(question);
+
+      } else {
+        
+        seenTag = question.tags.indexOf('seen');
+        corectTag = question.tags.indexOf('corect');
+        incorectTag = question.tags.indexOf('incorect');
+
+        if (seenTag < 0 && ( corectTag < 0 || incorectTag < 0)) {
+          
+          model.quiz.push(question);
+
+        }
+
+      }
+
+    }
+
+    model.question = model.quiz[0];
+
+    startTimer();
+
+  };
+
+  model.initQuestionsModel();
+
   $scope.StarQuestion = function () {
     var index = model.question.tags.indexOf('starred');
 
@@ -201,74 +225,37 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   $scope.ValidateAnswer = function () {
     
-    var correctAnswers = model.question.v.split(' ');
-    var setAnswers = [];
-    var index = 0;
-
-    // set tag array if not found
-    if (!model.question.tags) {
-      model.question.tags = [];
-    }
-    
+    var correctAnswers = model.question.v.split(' '),
+        setAnswers = [], index = 0, corect, incorect, seen;
+        
+    // add users set answers to an array to be compared with the valid ones
     angular.forEach(model.answers, function (value, key) {
       if (value) {
         setAnswers.push(key);
       }
     });
-     
-    if (angular.equals(setAnswers.sort(), correctAnswers.sort())) {
-      
-      model.valid = true;
-      model.invalid = false;
+    
+    model.valid = angular.equals(setAnswers.sort(), correctAnswers.sort());
+    
+    if (!model.quizmode) {
 
-    } else {
-
-      model.valid = false;
-      model.invalid = true;
+      model.splash = true;  
 
     }
-    
-    model.alert = true;
-
     
     if (!model.valid) {
 
-      // index = model.question.tags.indexOf('corect');
+      model.question.tags.push('incorect');
       
-      // //remove previously set correct answer
-      // if (index >= 0) {
-      //   model.question.tags.splice(index, 1);
-      // }
-
-      if (model.question.tags.indexOf('incorect') < 0) {
-        model.question.tags.push('incorect');
-      }
-      
-
     } else {
       
-      // index = model.question.tags.indexOf('incorect');
+      model.question.tags.push('corect');
       
-      // //remove previously set correct answer
-      // if (index >= 0) {
-      //   model.question.tags.splice(index, 1);
-      // }
-      
-      if (model.question.tags.indexOf('corect') < 0) {
-        model.question.tags.push('corect');
-      }
-
-      model.timeout = $timeout(function () {
-        
-        model.alert = false;
-        model.starred = false;
-        
-        $scope.NextQuestionInQuiz();
-        $scope.$emit('$answersUpdate');
-
-      }, 3000);
-
     }
+
+    $scope.$emit('$answersUpdate');
+
+    $scope.NextQuestionInQuiz();
 
     $scope.StoreData();
   };
@@ -295,38 +282,29 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   $scope.NextQuestionInQuiz = function () {
 
-    
-
     if (model.quiz[model.current + 1]) {
-      model.question = model.quiz[model.current + 1];  
+      
+      model.question = model.quiz[model.current + 1];
+
     } else {
+
       model.splash = true;
+
     }
 
     model.current = model.current + 1;
-
-    $timeout.cancel(model.timeout);
 
     $scope.StoreData();
 
     $scope.ResetAnsweres();
 
-    model.starred = false;
-    model.alert = false;
-
     model.statistics.corect = taggedFilter(model.quiz, 'corect');
     model.statistics.incorect = taggedFilter(model.quiz, 'incorect');
-    
+
     // Stop quiz if failed answers exceeds limit per category
     if (model.statistics.incorect.length > (quizLimits[category].max - quizLimits[category].min)) {
       model.splash = true;
     }
-
-
-    // Stop quiz if user has reached last question
-
-
-
 
   };
 
