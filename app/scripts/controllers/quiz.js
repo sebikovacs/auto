@@ -28,6 +28,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   // public params
   model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
   model.answers = { a: false, b: false, c: false };
+  model.statistics = {};
   
   model.quiz = [];
   model.questions = [];
@@ -47,9 +48,20 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     var f = new Date(d + 30 * 60 * 1000);
 
     var interval = $interval(function () {
+      
       d = new Date().getTime();
+      
       var secondsLeft = moment(f-d).seconds();
       var minutesLeft = moment(f-d).minutes();
+
+      if (minutesLeft === 0 && secondsLeft === 0) {
+
+        model.splash = true;
+        
+        $interval.cancel(interval);
+        interval = undefined;
+
+      }
 
       model.timer = {
         minutes: minutesLeft,
@@ -276,9 +288,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     
   };
 
-  model.statistics = {
-
-  };
+ 
 
   $scope.NextQuestionInQuiz = function () {
 
