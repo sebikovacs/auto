@@ -41,7 +41,7 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
   };
 
   $scope.$on('$answersUpdate', function () {
-    //initQuestionsModel();
+
   });
 
   //initQuestionsModel();

@@ -47,7 +47,7 @@ html {
 
 .sidebar {
   padding: 30px 15px;
-  background: lighten($color1, 5%);
+  background: darken($color1, 15%);
 
   @include breakpoint(papa-bear) {
     position: fixed;
