@@ -10,14 +10,58 @@ layout: app.html
 
     <ul class="nav nav-pills nav-stacked">
       <li>
-        <a href="#/chestionar/1">Home</a>
+        <a href="#/">Home</a>
       </li>
       <li>
-        <a href="#/intrebari">Toate <span class="label label-default">\{{top.model.questions.all.length}}</span></a>
+        <a href="">Categoria A</a>
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=a">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=a">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="">Categoria B</a>
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=b">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=b">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="">Categoria C</a>
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=c">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=c">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="">Categoria D</a>
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=d">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=d">Toate intrebarile</a>
+          </li>
+        </ul>
       </li>
       <!-- <li>
+        <a href="#/intrebari">Toate <span class="label label-default">\{{top.model.questions.all.length}}</span></a>
+      </li>
+      <li>
         <a href="">Parcurse <span class="label label-default">\{{top.model.current}}</span></a>
-      </li> -->
+      </li>
       <li>
         <a href="#/intrebari?tags=corect">Corectes:
           <span class="label label-success">\{{top.model.correct}}</span>
@@ -37,7 +81,7 @@ layout: app.html
         <a href="#/chestionar/\{{top.model.questions.current}}">Ai ramas la intrebarea
           <span class="label label-warning">\{{top.model.questions.current}}</span>
         </a>
-      </li>
+      </li> -->
       <li>
         <a href="#/legislatie-rutiera">Legislatia Rutiera</a>
       </li>

@@ -22,7 +22,7 @@
 
   </div>
 
-  <div class="toolbar">
+  <div class="toolbar" ng-show="model.quizmode">
     <div class="separator">
       <span class="fa fa-check"></span>
       <span>Raspunsuri corecte: </span>
@@ -43,7 +43,7 @@
   </div>
 
   <h2 class="question">
-    <span class="question-index">{{model.current}}</span>
+    <span class="question-index" ng-show="model.quizmode">{{model.current}}</span>
 
     {{model.question.q}}
     
@@ -71,13 +71,13 @@
   </div>
 
   <div class="buttons">
-    <a class="prev" href="" ng-click="PrevQuestion()" ng-show="model.current > 1" >
+    <a class="prev" href="" ng-click="PrevQuestion()" ng-show="model.current > 1 && !model.quiz" >
       <span class="fa-chevron-left fa"></span>
     </a>
 
     <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
 
-    <a class="next" href="" ng-click="NextQuestionInQuiz()">
+    <a class="next" href="" ng-click="NextQuestion()" ng-show="!model.quiz">
       <span class="fa-chevron-right fa"></span>
     </a>
   </div>
@@ -88,14 +88,14 @@
 
     <h3 ng-show="model.statistics.corect.length">Intrebari la care ati raspuns corect</h3>
     <ul ng-show="model.statistics.corect.length">
-      <li ng-repeat="answer in model.statistics.corect">
+      <li ng-repeat="answer in model.statistics.corect track by $index">
         <a href="">{{answer.q}}</a>
       </li>
     </ul>
 
     <h3 ng-show="model.statistics.incorect.length">Intrebari la care ati raspuns gresit</h3>
     <ul ng-show="model.statistics.incorect.length">
-      <li ng-repeat="answer in model.statistics.incorect">
+      <li ng-repeat="answer in model.statistics.incorect track by $index">
         <a href="">{{answer.q}}</a>
       </li>
     </ul>

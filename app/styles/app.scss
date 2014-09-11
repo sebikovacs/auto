@@ -260,7 +260,7 @@ h2.question {
   left: 50%;
   top: 0;
   background: #fff;
-  width: 415px;
+  width: 425px;
   margin-left: -212px;
   box-shadow: rgba(0,0,0,.6) 0px 1px 1px;
   z-index: 15;
@@ -293,6 +293,15 @@ h2.question {
   z-index: 16;
 }
 
+.seen {
+  color: gray;
+}
+.corect {
+  color: $colorSuccess;
+}
+.incorect {
+  color: $colorFail;
+}
 
 
 

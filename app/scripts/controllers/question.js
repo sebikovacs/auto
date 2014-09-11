@@ -1,41 +1,27 @@
-app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $interval, $q, data, taggedFilter) {
-	'use strict';
+app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $location, $timeout, $interval, $q, data, taggedFilter) {
+  'use strict';
 
   // private params
   var model = $scope.model = {};
   var storage = window.localStorage;
   var category = $routeParams.cat;
+  var questionId = $routeParams.id;
 
-  var quizLimits = {
-    a: {
-      min: 17,
-      max: 20
-    },
-    b: {
-      min: 22,
-      max: 26
-    },
-    c: {
-      min: 9,
-      max: 11
-    },
-    d: {
-      min: 22,
-      max: 26
-    }
-  };
 
   // public params
   model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
   model.answers = { a: false, b: false, c: false };
-  model.statistics = {};
-  
-  model.quiz = [];
-  model.questions = [];
+
   model.questionsForCat = [];
 
   model.current = 1;
   model.starred = false;
+
+  $scope.StoreDatas = function () {
+    
+    storage.setItem('questions', JSON.stringify(model.questions));
+
+  };
 
 
   // Private helper methods
@@ -90,13 +76,16 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     }
   };
 
-  var findObjectById = function (index) {
+  var findObjectById = function (arr, id) {
+    
     var obj;
     
-    angular.forEach(model.questions.all, function (question) {
-      if (question.id === index) {
-        obj = question;
-      } 
+    angular.forEach(arr, function (item) {
+      
+      if (item.id === parseInt(id, 10)) {
+        obj = item;
+      }
+
     });
 
     return obj;
@@ -133,24 +122,54 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     var questions = JSON.parse(storage.getItem('questions'));
     
-    if (questions) {
+    if (questions && !$.isEmptyObject(questions)) {
+      
       
       model.questions = questions;
-      model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
+      model.questionsForCat.push.apply(model.questionsForCat, questions[category]);
 
-      $scope.StartQuiz();
+      // find the question asked by the user
+      model.question = findObjectById(model.questionsForCat, questionId);
+      
+
+      if (model.question.tags && model.question.tags.indexOf('seen') < 0) {
+        
+        model.question.tags.push('seen');
+      
+
+      } else if (!model.question.tags) {
+        
+        model.question.tags = ['seen'];
+      
+        
+      }
+
+      $scope.StoreDatas();
+      
 
     } else {
-
+      
       data.GetQuestions()
         .then(function (res) {
           
           model.questions = res;
-          model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
 
-          $scope.StartQuiz();
+          model.questionsForCat.push.apply(model.questionsForCat, res[category]);
 
-          $scope.StoreData();
+          // find the question asked by the user
+          model.question = findObjectById(model.questionsForCat, questionId);
+          
+          if (model.question.tags && model.question.tags.indexOf('seen') < 0) {
+            
+            model.question.tags.push('seen');
+
+          } else {
+            
+            model.question.tags = ['seen'];
+
+          }
+          
+          $scope.StoreDatas();
 
 
         }).catch(function (err) {
@@ -159,42 +178,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
         });
     }
-  };
-
-  // Event methods
-  $scope.StartQuiz = function () {
-    var random, question, i, corectTag, incorectTag;
-
-    // create a list of random questions for the quiz
-    while (model.quiz.length <= quizLimits[category].max) {
-
-      random = getRandomInt(0, model.questionsForCat.length);
-      question = model.questionsForCat[random];
-
-      if (!question.tags) {
-        
-        question.tags = [];
-        model.quiz.push(question);
-
-      } else {
-        
-        corectTag = question.tags.indexOf('corect');
-        incorectTag = question.tags.indexOf('incorect');
-
-        if ( corectTag < 0 && incorectTag < 0) {
-          
-          model.quiz.push(question);
-
-        }
-
-      }
-
-    }
-
-    model.question = model.quiz[0];
-
-    startTimer();
-
   };
 
   model.initQuestionsModel();
@@ -214,17 +197,13 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     }
 
-    $scope.StoreData();
+    $scope.StoreDatas();
 
     $scope.$emit('$answersUpdate');
 
   };
 
-  $scope.StoreData = function () {
-    
-    storage.setItem('questions', JSON.stringify(model.questions));
-
-  };
+  
 
   $scope.SetAnswer = function (param) {
     
@@ -238,8 +217,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     
     var correctAnswers = model.question.v.split(' '),
         setAnswers = [], index = 0, corect, incorect, seen;
-
-    
+        
     // add users set answers to an array to be compared with the valid ones
     angular.forEach(model.answers, function (value, key) {
       if (value) {
@@ -249,25 +227,22 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     
     model.valid = angular.equals(setAnswers.sort(), correctAnswers.sort());
     
-    // show splashpage
     if (!model.quizmode) {
 
       model.splash = true;  
 
     }
     
-    /* no need to check if corect/incorect tags are present
-       since the questions are selected from a pristine pool
-    */
     if (!model.valid) {
 
       model.question.tags.push('incorect');
-      model.quizValid = false;
+      
+
       
     } else {
       
       model.question.tags.push('corect');
-      model.quizValid = true;
+      
       
     }
 
@@ -275,7 +250,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     $scope.NextQuestionInQuiz();
 
-    $scope.StoreData();
+    $scope.StoreDatas();
   };
 
   $scope.NextQuestion = function () {
@@ -284,7 +259,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     model.questions.current = nextId;
 
-    $scope.StoreData();
+    $scope.StoreDatas();
 
     $scope.ResetAnsweres();
 
@@ -308,11 +283,9 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     }
 
-    console.log(model.question.v);
-
     model.current = model.current + 1;
 
-    $scope.StoreData();
+    $scope.StoreDatas();
 
     $scope.ResetAnsweres();
 
@@ -332,7 +305,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     model.questions.current = prevId;    
 
-    $scope.StoreData();
+    $scope.StoreDatas();
 
     $scope.ResetAnsweres();
 

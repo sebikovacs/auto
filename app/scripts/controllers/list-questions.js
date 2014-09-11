@@ -3,37 +3,64 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
 
   var model = $scope.model = {};
   var storage = window.localStorage;
+  model.category = $routeParams.cat;
 
   model.taggedQuestions = [];
+  model.questionsForCat = [];
+  model.questions = [];
  
   model.initQuestionsModel = function () {
     
-    if (storage.getItem('questions') && typeof JSON.parse(storage.getItem('questions')) === 'object') {
+    model.questions = JSON.parse(storage.getItem('questions'));
+
+    if ( model.questions && !$.isEmptyObject(model.questions)) {
+      
 
       model.questions = JSON.parse(storage.getItem('questions'));
+      model.questionsForCat.push.apply(model.questionsForCat, model.questions[model.category]);
+
+      $scope.StoreData();
 
     } else {
+      
+      data.GetQuestions()
+        .then(function (res) {
+          
+          model.questions = res;
+          model.questionsForCat.push.apply(model.questionsForCat, res[model.category]);
+           
+          $scope.StoreData();
 
-      model.questions = null;
-               
+
+        }).catch(function (err) {
+          
+          console.log(err);
+
+        });
     }
+
+  };
+
+  $scope.StoreData = function () {
+    
+    storage.setItem('questions', JSON.stringify(model.questions));
 
   };
 
   
   model.initQuestionsModel();
 
-  if ($location.search().tags) {
+  // if ($location.search().tags) {
 
-    var taggedQuestions = taggedFilter(model.questions.all, $location.search().tags);
+  //   var taggedQuestions = taggedFilter(model.questions.all, $location.search().tags);
 
-    model.taggedQuestions.push.apply(model.taggedQuestions, taggedQuestions);
+  //   model.taggedQuestions.push.apply(model.taggedQuestions, taggedQuestions);
 
-  } else {
+  // } else {
 
-    model.taggedQuestions = model.questions.all;
+  //   model.taggedQuestions = model.questions.all;
 
-  }
+  // }
 
 });
 

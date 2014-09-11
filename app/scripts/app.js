@@ -11,16 +11,16 @@ var app = angular.module('autohack', [
 	.when('/quiz', {
 		templateUrl: 'views/question.html',
 		controller: 'QuizCtrl',
-		reloadOnSearch: false
+		reloadOnSearch: true
 	})
-	.when('/chestionar/:id', {
-		templateUrl: 'views/allquestions.html',
-		controller: 'AllQuestionsCtrl',
-		reloadOnSearch: false
-	})
-	.when('/intrebari', {
+	.when('/toate-intrebarile', {
 		templateUrl: 'views/list.html',
 		controller: 'ListQuestionsCtrl',
+		reloadOnSearch: true
+	})
+	.when('/intrebare', {
+		templateUrl: 'views/question.html',
+		controller: 'QuestionCtrl',
 		reloadOnSearch: true
 	})
 	.when('/legislatie-rutiera', {
