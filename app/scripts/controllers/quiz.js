@@ -6,6 +6,10 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   var storage = window.localStorage;
   var category = $routeParams.cat;
   var root = $rootScope.root;
+
+  if (!category) {
+    $location.path('/dashboard');
+  }
   
   model.questions = data.model.questions;
 
@@ -108,7 +112,11 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   // Init
   data.GetQuestions().then(function () {
-    $scope.StartQuiz();
+    
+    if (category) {
+      $scope.StartQuiz();  
+    }
+    
   });
 
   

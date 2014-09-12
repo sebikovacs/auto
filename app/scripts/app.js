@@ -8,6 +8,11 @@ var app = angular.module('autohack', [
 	'use strict';
 
 	$routeProvider
+	.when('/dashboard', {
+		templateUrl: 'views/dashboard.html',
+		controller: 'DashboardCtrl',
+		reloadOnSearch: true
+	})
 	.when('/quiz', {
 		templateUrl: 'views/question.html',
 		controller: 'QuizCtrl',
@@ -29,7 +34,7 @@ var app = angular.module('autohack', [
 		reloadOnSearch: false
 	})
 	.otherwise({
-		redirectTo: '/quiz'
+		redirectTo: '/dashboard'
 	});
 
 });
