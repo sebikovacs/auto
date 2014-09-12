@@ -5,6 +5,9 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   var model = $scope.model = {};
   var storage = window.localStorage;
   var category = $routeParams.cat;
+  var root = $rootScope.root;
+  
+  model.questions = data.model.questions;
 
   var quizLimits = {
     a: {
@@ -26,23 +29,20 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   };
 
   // public params
-  model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
   model.answers = { a: false, b: false, c: false };
   model.statistics = {};
+  model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
   
   model.quiz = [];
-  model.questions = [];
-  model.questionsForCat = [];
-
   model.current = 1;
   model.starred = false;
 
-
-  // Private helper methods
-  var getRandomInt = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  model.timer = {
+    minutes: 30,
+    seconds: 0
   };
 
+  // Private helper methods
   var startTimer = function () {
     var d = new Date().getTime();
     var f = new Date(d + 30 * 60 * 1000);
@@ -70,97 +70,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     }, 1000);
   };
 
-  var findObjectsInArray = function (arr, obj, index) {
-    var flag = false;
-    var i;
-    
-    for ( i = 0; i < arr.length; i++) {
-      if (arr[i].id === obj.id) {
-        
-        flag = true;
-        break;
-
-      }
-    }
-
-    if(index) {
-      return i;
-    } else {
-      return flag;  
-    }
-  };
-
-  var findObjectById = function (index) {
-    var obj;
-    
-    angular.forEach(model.questions.all, function (question) {
-      if (question.id === index) {
-        obj = question;
-      } 
-    });
-
-    return obj;
-  };
-
-  var findNextId = function (id) {
-    var nextId = null;
-    
-    for (var i = 0; i < model.questions.all.length; i++) {
-      if (model.questions.all[i].id === id) {
-        nextId = model.questions.all[i+1].id;
-        break;
-      }
-    }
-
-    return nextId;
-  };
-
-  var findPrevId = function (id) {
-    var nextId = null;
-    
-    for (var i = 0; i < model.questions.all.length; i++) {
-      if (model.questions.all[i].id === id) {
-        nextId = model.questions.all[i-1].id;
-        break;
-      }
-    }
-
-    return nextId;
-  };
-
-  // Init
-  model.initQuestionsModel = function () {
-
-    var questions = JSON.parse(storage.getItem('questions'));
-    
-    if (questions) {
-      
-      model.questions = questions;
-      model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
-
-      $scope.StartQuiz();
-
-    } else {
-
-      data.GetQuestions()
-        .then(function (res) {
-          
-          model.questions = res;
-          model.questionsForCat.push.apply(model.questionsForCat, model.questions[category]);
-
-          $scope.StartQuiz();
-
-          $scope.StoreData();
-
-
-        }).catch(function (err) {
-          
-          console.log(err);
-
-        });
-    }
-  };
-
   // Event methods
   $scope.StartQuiz = function () {
     var random, question, i, corectTag, incorectTag;
@@ -168,8 +77,8 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     // create a list of random questions for the quiz
     while (model.quiz.length <= quizLimits[category].max) {
 
-      random = getRandomInt(0, model.questionsForCat.length);
-      question = model.questionsForCat[random];
+      random = root.getRandomInt(0, model.questions[category].length);
+      question = model.questions[category][random];
 
       if (!question.tags) {
         
@@ -197,35 +106,12 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   };
 
-  model.initQuestionsModel();
+  // Init
+  data.GetQuestions().then(function () {
+    $scope.StartQuiz();
+  });
 
-  $scope.StarQuestion = function () {
-    var index = model.question.tags.indexOf('starred');
-
-    model.starred = !model.starred;
-
-    if (index < 0) {
-
-      model.question.tags.push('starred');
-
-    } else {
-
-      model.question.tags.splice(index, 1);
-
-    }
-
-    $scope.StoreData();
-
-    $scope.$emit('$answersUpdate');
-
-  };
-
-  $scope.StoreData = function () {
-    
-    storage.setItem('questions', JSON.stringify(model.questions));
-
-  };
-
+  
   $scope.SetAnswer = function (param) {
     
     model.alert = false;
@@ -249,13 +135,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     
     model.valid = angular.equals(setAnswers.sort(), correctAnswers.sort());
     
-    // show splashpage
-    if (!model.quizmode) {
-
-      model.splash = true;  
-
-    }
-    
     /* no need to check if corect/incorect tags are present
        since the questions are selected from a pristine pool
     */
@@ -271,30 +150,12 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       
     }
 
-    $scope.$emit('$answersUpdate');
+    //$scope.$emit('$answersUpdate');
 
     $scope.NextQuestionInQuiz();
 
-    $scope.StoreData();
+    data.SaveQuestions();
   };
-
-  $scope.NextQuestion = function () {
-
-    var nextId = findNextId(model.current);
-
-    model.questions.current = nextId;
-
-    $scope.StoreData();
-
-    $scope.ResetAnsweres();
-
-    model.starred = false;
-
-    $location.path('chestionar/'+ nextId);
-    
-  };
-
- 
 
   $scope.NextQuestionInQuiz = function () {
 
@@ -308,11 +169,9 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     }
 
-    console.log(model.question.v);
-
     model.current = model.current + 1;
 
-    $scope.StoreData();
+    data.SaveQuestions();
 
     $scope.ResetAnsweres();
 
@@ -326,47 +185,37 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   };
 
-  $scope.PrevQuestion = function () {
-
-    var prevId = findPrevId(model.current);
-
-    model.questions.current = prevId;    
-
-    $scope.StoreData();
-
-    $scope.ResetAnsweres();
-
-    model.starred = false;
-
-    $location.path('chestionar/'+ prevId);
-  };
-
   $scope.ResetAnsweres = function () {
     model.answers.a = false;
     model.answers.b = false;
     model.answers.c = false;
   };
 
-  $scope.HideAlert = function () {
+  // $scope.StarQuestion = function () {
+  //   var index = model.question.tags.indexOf('starred');
+
+  //   model.starred = !model.starred;
+
+  //   if (index < 0) {
+
+  //     model.question.tags.push('starred');
+
+  //   } else {
+
+  //     model.question.tags.splice(index, 1);
+
+  //   }
+
+  //   $scope.StoreData();
+
+  //   $scope.$emit('$answersUpdate');
+
+  // };
+
+  // $scope.StoreData = function () {
     
-    model.alert = false;
+  //   storage.setItem('questions', JSON.stringify(model.questions));
 
-    $scope.ResetAnsweres();
-
-  };
-
-  $scope.ShowRightAnswers = function () {
-
-    $scope.HideAlert();
-
-    var rightAnswers = model.question.v.split('');
-
-    angular.forEach(rightAnswers, function (answer) {
-
-      model.answers[answer] = !model.answers[answer];
-
-    });
-    
-  };
+  // };
 
 });

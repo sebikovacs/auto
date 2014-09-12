@@ -6,52 +6,92 @@ app.factory('data', function($rootScope, $http, $q) {
 	'use strict';
 
 	// local testing urls
-	var printchompUrl = 'http://sandbox.printchomp.com';
-	var apiUrl = 'http://localhost:8080';
 	var env = 'local';
+	var storage = window.localStorage;
 
-	// dev
-	if(document.domain === 'dev.bizcardmaker.com') {
-		env = 'dev';
-	}
+	// // dev
+	// if(document.domain === 'dev.bizcardmaker.com') {
+	// 	env = 'dev';
+	// }
 
-	// stage
-	if(document.domain === 'stage.bizcardmaker.com') {
-		env = 'stage';
-	}
+	// // stage
+	// if(document.domain === 'stage.bizcardmaker.com') {
+	// 	env = 'stage';
+	// }
 
-	// live
-	if(document.domain === 'www.bizcardmaker.com') {
-		env = 'live';
-	}
+	// // live
+	// if(document.domain === 'www.bizcardmaker.com') {
+	// 	env = 'live';
+	// }
 
-	if(env === 'dev') {
-		apiUrl = 'https://dev-bizcardmaker.rhcloud.com';
-	}
+	// if(env === 'dev') {
+	// 	apiUrl = 'https://dev-bizcardmaker.rhcloud.com';
+	// }
 
-	if(env === 'live' || env === 'stage') {
-		apiUrl = 'https://live-bizcardmaker.rhcloud.com';
-		printchompUrl = 'https://printchomp.com';
-	}
+	// if(env === 'live' || env === 'stage') {
+	// 	apiUrl = 'https://live-bizcardmaker.rhcloud.com';
+	// 	printchompUrl = 'https://printchomp.com';
+	// }
 
 	// local model
 	var model = {
-		offers: []
+		questions: {}
 	};
 
 	var GetQuestions = function () {
 		var deferred = $q.defer();
 
-		$http.get('/questions.json')
-		.success(function(response) {
-			
-			deferred.resolve(response);
+		if (!$.isEmptyObject(model.questions)) {
 
-		}).error(function(err) {
+			// if questions are already cached localy
+			deferred.resolve(model.questions);
 
-			deferred.reject(err);
+			console.log('served from chache');
 
-		});
+		} else {
+
+
+			// serve questions from localstorage or fetch them from the server
+			var questions = JSON.parse(storage.getItem('questions'));
+			if (!$.isEmptyObject(questions)) {
+
+				angular.copy(questions, model.questions);
+				deferred.resolve(model.questions);
+
+				console.log('served from localstorage');
+
+			} else {
+
+
+				$http.get('/questions.json')
+				.success(function(response) {
+					
+					angular.copy(response, model.questions);
+					deferred.resolve(model.questions);
+
+					SaveQuestions();
+
+					console.log('served from server');
+
+				}).error(function(err) {
+
+					deferred.reject(err);
+
+				});
+
+			}
+
+		}
+
+		return deferred.promise;
+	};
+
+	var SaveQuestions = function () {
+		var deferred = $q.defer();
+		
+		console.log('saving');
+
+		storage.setItem('questions', JSON.stringify(model.questions));
 
 		return deferred.promise;
 	};
@@ -76,12 +116,12 @@ app.factory('data', function($rootScope, $http, $q) {
 	
 
 	return {
-		printchompUrl: printchompUrl,
 		env: env,
 
 		model: model,
 		GetQuestions: GetQuestions,
-		GetLegis: GetLegis
+		GetLegis: GetLegis,
+		SaveQuestions: SaveQuestions
 	};
 
 });

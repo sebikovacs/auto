@@ -14,7 +14,7 @@ app.filter('tagged', function() {
         angular.forEach(input, function (element) {
 
           if (element.tags && element.tags.indexOf(tag) >= 0) {
-            console.log(element);
+            
             out.push(element);
             
           }

@@ -1,7 +1,7 @@
 <h2>Lista de intrebari</h2>
 
 <ol>
-  <li ng-repeat="question in model.questionsForCat track by $index">
+  <li ng-repeat="question in model.questionsList track by $index">
     
     <a href="#/intrebare?cat={{model.category}}&id={{question.id}}" 
        ng-class="{'corect': question.tags.indexOf('corect') >= 0, 'incorect': question.tags.indexOf('incorect') >= 0, 'seen': question.tags.indexOf('seen') >= 0 }">

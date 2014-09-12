@@ -41,4 +41,66 @@ app.run(function($rootScope){
 
 	root.smallScreen = (screen.width <= 1024);
 
+	root.getRandomInt = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  root.findObjectsInArray = function (arr, obj, index) {
+    var flag = false;
+    var i;
+    
+    for ( i = 0; i < arr.length; i++) {
+      if (arr[i].id === obj.id) {
+        
+        flag = true;
+        break;
+
+      }
+    }
+
+    if(index) {
+      return i;
+    } else {
+      return flag;  
+    }
+  };
+
+  root.findObjectById = function (index) {
+    var obj;
+    
+    angular.forEach(model.questions.all, function (question) {
+      if (question.id === index) {
+        obj = question;
+      } 
+    });
+
+    return obj;
+  };
+
+  root.findNextId = function (id) {
+    var nextId = null;
+    
+    for (var i = 0; i < model.questions.all.length; i++) {
+      if (model.questions.all[i].id === id) {
+        nextId = model.questions.all[i+1].id;
+        break;
+      }
+    }
+
+    return nextId;
+  };
+
+  root.findPrevId = function (id) {
+    var nextId = null;
+    
+    for (var i = 0; i < model.questions.all.length; i++) {
+      if (model.questions.all[i].id === id) {
+        nextId = model.questions.all[i-1].id;
+        break;
+      }
+    }
+
+    return nextId;
+  };
+
 });
