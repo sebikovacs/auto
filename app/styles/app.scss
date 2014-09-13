@@ -82,6 +82,19 @@ html {
     &:hover {
       background: darken($color1, 8%);
     }
+
+    &.btn {
+      color: #333;
+      font-size: 11px;
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+      border-radius: 4px;
+
+      &:hover {
+        background: darken(#fff, 10%);
+      }
+    }
   }
 }
 
