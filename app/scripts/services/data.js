@@ -96,6 +96,10 @@ app.factory('data', function($rootScope, $http, $q) {
 		return deferred.promise;
 	};
 
+	var RemoveQuestions = function () {
+		storage.removeItem('questions');	
+	};
+
 
 	var GetLegis = function () {
 		var deferred = $q.defer();
@@ -121,7 +125,8 @@ app.factory('data', function($rootScope, $http, $q) {
 		model: model,
 		GetQuestions: GetQuestions,
 		GetLegis: GetLegis,
-		SaveQuestions: SaveQuestions
+		SaveQuestions: SaveQuestions,
+		RemoveQuestions: RemoveQuestions
 	};
 
 });
