@@ -34,11 +34,14 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   // public params
   model.answers = { a: false, b: false, c: false };
-  model.statistics = {};
+  model.statistics = {
+    total: quizLimits[category].max,
+    left: quizLimits[category].max - 1
+  };
   model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
   
   model.quiz = [];
-  model.current = 1;
+  model.current = 0;
   model.starred = false;
 
   model.timer = {
@@ -76,29 +79,27 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   // Event methods
   $scope.StartQuiz = function () {
-    var random, question, i, corectTag, incorectTag;
+    var random, question, i = 1, corectTag, incorectTag;
 
     // create a list of random questions for the quiz
     while (model.quiz.length <= quizLimits[category].max) {
 
       random = root.getRandomInt(0, model.questions[category].length);
+      random = parseInt(random, 10);
       question = model.questions[category][random];
 
-      if (!question.tags) {
+
+
+      corectTag = question.tags.indexOf('corect');
+      incorectTag = question.tags.indexOf('incorect');
+
+      if ( corectTag < 0 && incorectTag < 0) {
         
-        question.tags = [];
+        question.tempId = i;
+
         model.quiz.push(question);
 
-      } else {
-        
-        corectTag = question.tags.indexOf('corect');
-        incorectTag = question.tags.indexOf('incorect');
-
-        if ( corectTag < 0 && incorectTag < 0) {
-          
-          model.quiz.push(question);
-
-        }
+        i = i + 1;
 
       }
 
@@ -165,6 +166,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     data.SaveQuestions();
   };
 
+
   $scope.NextQuestionInQuiz = function () {
 
     if (model.quiz[model.current + 1]) {
@@ -178,13 +180,17 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     }
 
     model.current = model.current + 1;
+    console.log(model.question.v);
 
     data.SaveQuestions();
 
     $scope.ResetAnsweres();
 
+    // Calculate number of questions left in quiz by eliminating answered questions
+
     model.statistics.corect = taggedFilter(model.quiz, 'corect');
     model.statistics.incorect = taggedFilter(model.quiz, 'incorect');
+    model.statistics.left = model.statistics.total - (model.statistics.corect.length + model.statistics.incorect.length + 1);
 
     // Stop quiz if failed answers exceeds limit per category
     if (model.statistics.incorect.length > (quizLimits[category].max - quizLimits[category].min)) {
@@ -197,6 +203,14 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     model.answers.a = false;
     model.answers.b = false;
     model.answers.c = false;
+  };
+
+  $scope.AnswerLater = function () {
+    
+    // take question out of the stack and put it to the end
+    // we need some pseudoID's for the quiz to add each question a number
+    // show total number of questions
+    // show number of questions left
   };
 
   // $scope.StarQuestion = function () {

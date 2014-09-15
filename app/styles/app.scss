@@ -269,18 +269,17 @@ h2.question {
 */
 .toolbar {
   @include clearfix;
-  position: fixed;
-  left: 50%;
+  position: absolute;
   top: 0;
   background: #fff;
-  width: 425px;
-  margin-left: -212px;
+  width: 100%;
   box-shadow: rgba(0,0,0,.6) 0px 1px 1px;
   z-index: 15;
+  text-align: center;
 
   .separator {
+    display: inline-block;
     padding: 5px 10px;
-    float: left;
     border-right: 1px solid #ccc;
     &:last-child {
       border-right: 0;

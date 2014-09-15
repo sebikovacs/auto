@@ -24,6 +24,16 @@
 
   <div class="toolbar" ng-show="model.quizmode">
     <div class="separator">
+      <span>Total: </span>
+      <span>{{model.statistics.total}}</span>
+    </div>
+
+    <div class="separator">
+      <span>Ramase: </span>
+      <span>{{model.statistics.left}}</span>
+    </div>
+
+    <div class="separator">
       <span class="fa fa-check"></span>
       <span>Raspunsuri corecte: </span>
       <span>{{model.statistics.corect.length || 0}}</span>
@@ -43,7 +53,7 @@
   </div>
 
   <h2 class="question">
-    <span class="question-index" ng-show="model.quizmode">{{model.current}}</span>
+    <span class="question-index" ng-show="model.quizmode">{{model.question.tempId}}</span>
 
     {{model.question.q}}
     
@@ -75,6 +85,7 @@
       <span class="fa-chevron-left fa"></span>
     </a>
 
+    <a class="btn btn-default" href="" ng-click="AnswerLater()">Raspund mai tarziu</a>
     <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
 
     <a class="next" href="" ng-click="NextQuestion()" ng-show="!model.quiz">
