@@ -82,13 +82,11 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     var random, question, i = 1, corectTag, incorectTag;
 
     // create a list of random questions for the quiz
-    while (model.quiz.length <= quizLimits[category].max) {
+    while (model.quiz.length <= (quizLimits[category].max - 1)) {
 
-      random = root.getRandomInt(0, model.questions[category].length);
+      random = root.getRandomInt(0, (model.questions[category].length - 1));
       random = parseInt(random, 10);
       question = model.questions[category][random];
-
-
 
       corectTag = question.tags.indexOf('corect');
       incorectTag = question.tags.indexOf('incorect');
@@ -104,7 +102,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       }
 
     }
-
+    console.log(model.quiz);
     model.question = model.quiz[0];
 
     startTimer();
@@ -168,26 +166,32 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
 
   $scope.NextQuestionInQuiz = function () {
+    
+    // find current question in stack
+    var index = 0;
 
-    if (model.quiz[model.current + 1]) {
+    angular.forEach(model.quiz, function (question, i) {
       
-      model.question = model.quiz[model.current + 1];
+      if (question.id === model.question.id) {
+        index = i;
+        
+      }
+    });
 
-    } else {
+    // find next unanswered question
+    for (var i = index+1; i < model.quiz.length; i++) {
+      if (model.quiz[i].tags.length === 0) {
+        model.question = model.quiz[i];
+        break;
+      }
+    };
 
-      model.splash = true;
-
-    }
-
-    model.current = model.current + 1;
-    console.log(model.question.v);
 
     data.SaveQuestions();
 
     $scope.ResetAnsweres();
 
     // Calculate number of questions left in quiz by eliminating answered questions
-
     model.statistics.corect = taggedFilter(model.quiz, 'corect');
     model.statistics.incorect = taggedFilter(model.quiz, 'incorect');
     model.statistics.left = model.statistics.total - (model.statistics.corect.length + model.statistics.incorect.length + 1);
@@ -206,11 +210,31 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   };
 
   $scope.AnswerLater = function () {
+
+    var index = 0;
+
+    angular.forEach(model.quiz, function (question, i) {
+      if (question.id === model.question.id) {
+        index = i;
+      }
+    });
+
+    $scope.ResetAnsweres();
+
+    // find next unanswered question
+    for (var i = index+1; i < model.quiz.length; i++) {
+      
+      if (model.quiz[i].tags.length === 0) {
+        model.question = model.quiz[i];
+        break;
+      }
+
+    };
+
+    var stashedQuestion = model.quiz.splice(index, 1);
+    model.quiz.push(stashedQuestion[0]);
     
-    // take question out of the stack and put it to the end
-    // we need some pseudoID's for the quiz to add each question a number
-    // show total number of questions
-    // show number of questions left
+    
   };
 
   // $scope.StarQuestion = function () {
