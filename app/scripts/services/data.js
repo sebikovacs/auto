@@ -46,8 +46,7 @@ app.factory('data', function($rootScope, $http, $q) {
 			// if questions are already cached localy
 			deferred.resolve(model.questions);
 
-			console.log('served from chache');
-
+			
 		} else {
 
 
@@ -57,8 +56,6 @@ app.factory('data', function($rootScope, $http, $q) {
 
 				angular.copy(questions, model.questions);
 				deferred.resolve(model.questions);
-
-				console.log('served from localstorage');
 
 			} else {
 
@@ -71,7 +68,7 @@ app.factory('data', function($rootScope, $http, $q) {
 
 					SaveQuestions();
 
-					console.log('served from server');
+					
 
 				}).error(function(err) {
 
@@ -88,8 +85,6 @@ app.factory('data', function($rootScope, $http, $q) {
 
 	var SaveQuestions = function () {
 		var deferred = $q.defer();
-		
-		console.log('saving');
 
 		storage.setItem('questions', JSON.stringify(model.questions));
 

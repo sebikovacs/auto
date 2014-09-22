@@ -70,11 +70,12 @@ app.run(function($rootScope){
     }
   };
 
-  root.findObjectById = function (index) {
+  root.findObjectById = function (questions, index) {
     var obj;
-    
-    angular.forEach(model.questions.all, function (question) {
-      if (question.id === index) {
+
+    angular.forEach(questions, function (question) {
+      if (question.id === parseInt(index)) {
+        
         obj = question;
       } 
     });

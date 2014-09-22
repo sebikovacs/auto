@@ -1,26 +1,6 @@
 <div class="quiz-question">
 
-  <div class="overlay-alert" ng-show="model.alert" ng-class="{'overlay-alert-success': model.valid, 'overlay-alert-danger': model.invalid}">
-
-    <a ng-click="HideAlert()" href="" class="fa fa-times-circle"></a>
-
-    <div ng-show="model.valid">
-
-      <p> <span class="fa fa-check"></span> Raspuns corect</p>
-      <a class="btn btn-default" ng-click="NextQuestionInQuiz()">Urmatoarea intrebare</a>
-
-    </div>
-
-    <div ng-show="model.invalid">
-
-      <p> <span class="fa fa-times"></span> Raspuns gresit</p>
-
-      <a class="btn btn-default" ng-click="ShowRightAnswers()">Arata raspuns corect</a>
-      <a class="btn btn-default" ng-click="NextQuestionInQuiz()">Urmatoarea intrebare</a>
-
-    </div>
-
-  </div>
+  
 
   <div class="toolbar" ng-show="model.quizmode">
     <div class="separator">
@@ -81,17 +61,36 @@
   </div>
 
   <div class="buttons">
-    <a class="prev" href="" ng-click="PrevQuestion()" ng-show="model.current > 1 && !model.quiz" >
+    <a class="prev" href="" ng-click="PrevQuestion()" ng-show="model.id > 1 && !model.quiz" >
       <span class="fa-chevron-left fa"></span>
     </a>
 
-    <a class="btn btn-default" href="" ng-click="AnswerLater()">Raspund mai tarziu</a>
+    <a class="btn btn-default" href="" ng-click="AnswerLater()" ng-show="model.quizmode">Raspund mai tarziu</a>
+    
     <a class="btn btn-primary" href="" ng-click="ValidateAnswer()">Trimite Raspuns</a>
 
     <a class="next" href="" ng-click="NextQuestion()" ng-show="!model.quiz">
       <span class="fa-chevron-right fa"></span>
     </a>
   </div>
+
+  <div class="row">
+
+    <div class="col-md-6 col-md-offset-3 center-text">
+      <a href="" ng-show="!model.quizmode" ng-click="ShowRightAnswers()" class="text-muted">Arata raspuns corect</a>
+      <div class="alert-custom" ng-show="model.alert" ng-class="{'alert-custom-danger': !model.valid, 'alert-custom-success': model.valid }">
+        
+        <p ng-if="!model.valid">Raspuns incorect. <span ng-if="model.valid === ''">Va rugam selectati cel putin un raspuns</span></p>
+        <p ng-if="model.valid">Raspuns corect.</p>
+        
+        
+
+      </div>
+    </div>
+  </div>
+
+  
+
   <div class="splash" ng-show="model.splash">
     <h1 ng-if="model.quizValid">Ati fost declarat ADMIS la examenul teoretic</h1>
     <h1 ng-if="!model.quizValid">Ati fost declarat RESPINS la examenul teoretic</h1>
