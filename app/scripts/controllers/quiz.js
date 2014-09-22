@@ -102,7 +102,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       }
 
     }
-    console.log(model.quiz);
+    
     model.question = model.quiz[0];
 
     startTimer();
