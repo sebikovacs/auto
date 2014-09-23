@@ -54,6 +54,7 @@ html {
     top: 0;
     left: 0;
     height: 100%;
+    overflow: auto;
     z-index: 9;
 
     box-shadow: 2px 0 8px rgba(#000, .12);
@@ -73,14 +74,17 @@ html {
   padding-top: 20px;
   margin: 0 -15px;
 
-  li > a {
+  > li > a {
     @include clearfix;
+    padding: 12px 15px;
     border-radius: 0;
 
-    color: #fff;
+    color: lighten($color1, 60%);
+    font-size: 14px;
 
-    &:hover {
-      background: darken($color1, 8%);
+    &:hover,
+    &:focus {
+      background: darken($color1, 12%);
     }
 
     &.btn {
@@ -92,9 +96,128 @@ html {
       border-radius: 4px;
 
       &:hover {
-        background: darken(#fff, 10%);
+        background: darken(#fff, 12%);
       }
     }
+  }
+}
+
+.sub-nav {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  padding: 0;
+
+  @include transform-origin(left top);
+  @include transform(scale(0));
+
+  @include transition(all 0.3s $ease-out-quint);
+
+  a {
+    display: block;
+    padding: 10px 10px 10px 40px;
+
+    color: #fff;
+    font-weight: bold;
+
+    &:focus,
+    &:hover {
+      background: darken($color1, 12%);
+    }
+  }
+}
+
+.main-nav a {
+  position: relative;
+  cursor: pointer;
+
+  &:focus,
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
+}
+
+.cat-symbol {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+  margin: -2px 0 0 4px;
+  border-radius: 100%;
+  border: 2px solid lighten($color1, 70%);
+
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 14px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cat-b .cat-symbol {
+  border-color: #2ECC71;
+  color: #2ECC71;
+}
+
+.cat-c .cat-symbol {
+  border-color: #F4D03F;
+  color: #F4D03F;
+}
+
+.cat-d .cat-symbol {
+  border-color: #F5AB35;
+  color: #F5AB35;
+}
+
+.main-nav .menu-icon,
+.main-nav .fa-angle-down {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  opacity: .4;
+
+  font-size: 20px;
+
+  @include transition(all 0.3s $ease-out-quint);
+}
+
+.main-nav .fa-angle-down {
+  opacity: .2;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+$cat-list: a, b, c, d;
+
+@each $cat in $cat-list {
+
+  .main-nav-cat-#{$cat} .cat-#{$cat} {
+    background: darken($color1, 10%);
+
+    .fa {
+      @include transform(rotate(180deg));
+    }
+
+    .sub-nav {
+      height: 80px;
+      opacity: 1;
+
+      @include transform(scale(1));
+    }
+  }
+
+}
+
+.btn-reset {
+  display: block;
+  margin: 12px auto;
+
+  font-size: 13px;
+
+  .fa {
+    opacity: .4;
   }
 }
 
