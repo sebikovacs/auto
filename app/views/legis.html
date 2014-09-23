@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="chapters" ng-repeat="chapters in model.legis">
+  <div class="chapters" ng-repeat="chapters in model.legis | filter:model.search">
     <h2>{{chapters.content}}</h2>
 
     <div class="level1" ng-repeat="level1 in chapters.level1 | filter:model.search">
