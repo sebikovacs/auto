@@ -259,7 +259,7 @@ h2.question {
   position: absolute;
   top: 0;
   background: #fff;
-  width: 100%;
+  width: 90%;
   box-shadow: rgba(0,0,0,.6) 0px 1px 1px;
   z-index: 15;
   text-align: center;
@@ -290,6 +290,7 @@ h2.question {
   left: 0;
   top: 0;
   z-index: 16;
+  padding: 16px 0 0 30px;
 }
 
 .seen {
@@ -302,6 +303,9 @@ h2.question {
   color: $colorFail;
 }
 
+.list-toolbar {
+  padding: 0 0 15px;
+}
 
 
 

@@ -1,4 +1,8 @@
-<h2>Lista de intrebari</h2>
+<h2>Lista de intrebari categoria {{model.category | uppercase}}: </h2>
+
+<div class="list-toolbar">
+  <a class="btn btn-warning btn-xs" ng-click="Reset()">Reseteaza raspunsurile</a>
+</div>
 
 <ol>
   <li ng-repeat="question in model.questionsList track by $index">
