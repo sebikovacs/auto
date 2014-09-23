@@ -4,11 +4,23 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
   var top = $scope.top = {};
   var storage = window.localStorage;
 
+  top.shownSubmenu = '';
+
   $scope.Reset = function () {
     
     data.RemoveQuestions();
     $location.path($location.path());
 
-  }
+  };
+
+  top.ToggleSubmenu = function(submenu) {
+
+    if(submenu === top.shownSubmenu) {
+      return top.shownSubmenu = '';
+    }
+
+    top.shownSubmenu = submenu;
+
+  };
   
 });

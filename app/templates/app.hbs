@@ -8,12 +8,22 @@ layout: app.html
       <img src="images/logo-mono.png">
     </a>
 
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked main-nav main-nav-\{{ top.shownSubmenu }}">
       <li>
-        <a href="#/">Home</a>
+        <a href="#/">
+          Acasă
+
+          <i class="fa fa-home menu-icon"></i>
+        </a>
       </li>
-      <li>
-        <a href="">Categoria A</a>
+      <li class="cat-a">
+
+        <a ng-click="top.ToggleSubmenu('cat-a')">
+          Categoria <span class="cat-symbol">A</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
         <ul class="sub-nav">
           <li>
             <a href="#/quiz?cat=a">Chestionar</a>
@@ -22,9 +32,17 @@ layout: app.html
             <a href="#/toate-intrebarile?cat=a">Toate intrebarile</a>
           </li>
         </ul>
+
       </li>
-      <li>
-        <a href="">Categoria B</a>
+      <li class="cat-b">
+
+        <a ng-click="top.ToggleSubmenu('cat-b')">
+          Categoria
+          <span class="cat-symbol">B</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
         <ul class="sub-nav">
           <li>
             <a href="#/quiz?cat=b">Chestionar</a>
@@ -34,8 +52,15 @@ layout: app.html
           </li>
         </ul>
       </li>
-      <li>
-        <a href="">Categoria C</a>
+      <li class="cat-c">
+
+        <a ng-click="top.ToggleSubmenu('cat-c')">
+          Categoria
+          <span class="cat-symbol">C</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
         <ul class="sub-nav">
           <li>
             <a href="#/quiz?cat=c">Chestionar</a>
@@ -45,8 +70,15 @@ layout: app.html
           </li>
         </ul>
       </li>
-      <li>
-        <a href="">Categoria D</a>
+      <li class="cat-d">
+
+        <a ng-click="top.ToggleSubmenu('cat-d')">
+          Categoria
+          <span class="cat-symbol">D</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
         <ul class="sub-nav">
           <li>
             <a href="#/quiz?cat=d">Chestionar</a>
@@ -58,9 +90,20 @@ layout: app.html
       </li>
       
       <li>
-        <a href="#/legislatie-rutiera">Legislatia Rutiera</a>
+        <a href="#/legislatie-rutiera">
+          Legislatia Rutiera
+
+          <i class="fa fa-book menu-icon"></i>
+        </a>
       </li>
-      
+      <li>
+        <button class="btn btn-primary btn-reset" ng-click="Reset()">
+          <i class="fa fa-undo"></i>
+
+          Reseteaza raspunsurile
+        </button>
+      </li>
+
     </ul>
 
     <!-- <h2 class="nav-title">Filtre</h2>
