@@ -1,11 +1,18 @@
 <h2>Lista de intrebari categoria {{model.category | uppercase}}: </h2>
+<a class="btn btn-warning btn-xs btn-reset" ng-click="Reset()">Reseteaza raspunsurile</a>
 
-<div class="list-toolbar">
-  <a class="btn btn-warning btn-xs" ng-click="Reset()">Reseteaza raspunsurile</a>
+
+<div class="search row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Cautare intrebari" ng-model="model.search">
+      <span class="fa fa-search"></span>
+    </div>
+  </div>
 </div>
 
 <ol>
-  <li ng-repeat="question in model.questionsList track by $index">
+  <li ng-repeat="question in model.questionsList | filter:model.search track by $index">
     
     <a href="#/intrebare?cat={{model.category}}&id={{question.id}}" 
        ng-class="{'corect': question.tags.indexOf('corect') >= 0, 'incorect': question.tags.indexOf('incorect') >= 0, 'seen': question.tags.indexOf('seen') >= 0 }">

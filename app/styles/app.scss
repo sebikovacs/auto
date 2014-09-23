@@ -31,6 +31,7 @@ html {
   >.row,
   .app-content {
     height: 100%;
+    position: relative;
   }
 }
 
@@ -303,11 +304,27 @@ h2.question {
   color: $colorFail;
 }
 
-.list-toolbar {
-  padding: 0 0 15px;
+/* Questions list
+*/
+
+.btn-reset {
+  position: absolute;
+  top: 21px;
+  right: 0;
 }
+.search {
+  .form-group {
+    position: relative;
 
-
+    span.fa-search {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      color: #C0C0C0;
+      font-size: 20px;
+    }
+  }
+}
 
 
 
