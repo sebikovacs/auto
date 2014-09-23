@@ -14,7 +14,7 @@
 
   <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
 
-  <link rel="stylesheet" href="/styles/d5efd2d5.app.css">
+  <link rel="stylesheet" href="/styles/acc78f70.app.css">
 
 </head>
 <body ng-controller="TopCtrl">
@@ -31,39 +31,102 @@
       <img src="images/logo-mono.png">
     </a>
 
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked main-nav main-nav-{{ top.shownSubmenu }}">
       <li>
-        <a href="#/chestionar/1">Home</a>
+        <a href="#/">
+          Acasă
+
+          <i class="fa fa-home menu-icon"></i>
+        </a>
       </li>
-      <li>
-        <a href="#/intrebari">Toate <span class="label label-default">{{top.model.questions.all.length}}</span></a>
+      <li class="cat-a">
+
+        <a ng-click="top.ToggleSubmenu('cat-a')">
+          Categoria <span class="cat-symbol">A</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=a">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=a">Toate intrebarile</a>
+          </li>
+        </ul>
+
       </li>
-      <!-- <li>
-        <a href="">Parcurse <span class="label label-default">{{top.model.current}}</span></a>
-      </li> -->
+      <li class="cat-b">
+
+        <a ng-click="top.ToggleSubmenu('cat-b')">
+          Categoria
+          <span class="cat-symbol">B</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=b">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=b">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      <li class="cat-c">
+
+        <a ng-click="top.ToggleSubmenu('cat-c')">
+          Categoria
+          <span class="cat-symbol">C</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=c">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=c">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      <li class="cat-d">
+
+        <a ng-click="top.ToggleSubmenu('cat-d')">
+          Categoria
+          <span class="cat-symbol">D</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#/quiz?cat=d">Chestionar</a>
+          </li>
+          <li>
+            <a href="#/toate-intrebarile?cat=d">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      
       <li>
-        <a href="#/intrebari?tags=corect">Corecte:
-          <span class="label label-success">{{top.model.correct}}</span>
+        <a href="#/legislatie-rutiera">
+          Legislatia Rutiera
+
+          <i class="fa fa-book menu-icon"></i>
         </a>
       </li>
       <li>
-        <a href="#/intrebari?tags=incorect">Incorecte:
-          <span class="label label-danger">{{top.model.incorrect}}</span>
-        </a>
+        <button class="btn btn-primary btn-reset" ng-click="Reset()">
+          <i class="fa fa-undo"></i>
+
+          Reseteaza raspunsurile
+        </button>
       </li>
-      <li>
-        <a href="#/intrebari?tags=starred">Marcate:
-          <span class="label label-warning">{{top.model.starred}}</span>
-        </a>
-      </li>
-      <li>
-        <a href="#/chestionar/{{top.model.questions.current}}">Ai ramas la intrebarea
-          <span class="label label-warning">{{top.model.questions.current}}</span>
-        </a>
-      </li>
-      <li>
-        <a href="#/legislatie-rutiera">Legislatia Rutiera</a>
-      </li>
+
     </ul>
 
     <!-- <h2 class="nav-title">Filtre</h2>
@@ -87,7 +150,7 @@
   </div>
   <script src="/scripts/b66eaba1.plugins-app.js"></script>
 
-  <script src="/scripts/c7393963.app.js"></script>
+  <script src="/scripts/ec1217f1.app.js"></script>
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
