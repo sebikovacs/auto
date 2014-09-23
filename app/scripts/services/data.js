@@ -52,13 +52,12 @@ app.factory('data', function($rootScope, $http, $q) {
 
 			// serve questions from localstorage or fetch them from the server
 			var questions = JSON.parse(storage.getItem('questions'));
-			if (!$.isEmptyObject(questions)) {
+			if (!$.isEmptyObject(questions) && !questions.all) {
 
 				angular.copy(questions, model.questions);
 				deferred.resolve(model.questions);
 
 			} else {
-
 
 				$http.get('/questions.json')
 				.success(function(response) {

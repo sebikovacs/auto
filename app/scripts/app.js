@@ -77,18 +77,19 @@ app.run(function($rootScope){
       if (question.id === parseInt(index)) {
         
         obj = question;
+        
       } 
     });
 
     return obj;
   };
 
-  root.findNextId = function (id) {
+  root.findNextId = function (questions, id) {
     var nextId = null;
     
-    for (var i = 0; i < model.questions.all.length; i++) {
-      if (model.questions.all[i].id === id) {
-        nextId = model.questions.all[i+1].id;
+    for (var i = 0; i < questions.length; i++) {
+      if (questions[i].id === id) {
+        nextId = questions[i+1].id;
         break;
       }
     }
@@ -96,12 +97,12 @@ app.run(function($rootScope){
     return nextId;
   };
 
-  root.findPrevId = function (id) {
+  root.findPrevId = function (questions, id) {
     var nextId = null;
     
-    for (var i = 0; i < model.questions.all.length; i++) {
-      if (model.questions.all[i].id === id) {
-        nextId = model.questions.all[i-1].id;
+    for (var i = 0; i < questions.length; i++) {
+      if (questions[i].id === id) {
+        nextId = questions[i-1].id;
         break;
       }
     }

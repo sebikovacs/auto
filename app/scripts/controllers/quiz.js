@@ -6,6 +6,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   var storage = window.localStorage;
   var category = $routeParams.cat;
   var root = $rootScope.root;
+  var moment = window.moment;
 
   if (!category) {
     $location.path('/dashboard');
@@ -184,7 +185,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
         model.question = model.quiz[i];
         break;
       }
-    };
+    }
 
 
     data.SaveQuestions();
@@ -229,7 +230,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
         break;
       }
 
-    };
+    }
 
     var stashedQuestion = model.quiz.splice(index, 1);
     model.quiz.push(stashedQuestion[0]);

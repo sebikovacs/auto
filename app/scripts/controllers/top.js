@@ -16,7 +16,10 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
   top.ToggleSubmenu = function(submenu) {
 
     if(submenu === top.shownSubmenu) {
-      return top.shownSubmenu = '';
+      
+      top.shownSubmenu = '';
+      return top.shownSubmenu;
+
     }
 
     top.shownSubmenu = submenu;
