@@ -50,6 +50,11 @@ html {
   padding: 30px 15px;
   background: darken($color1, 15%);
 
+  .btn-reset {
+    position: static;
+    
+  }
+
   @include breakpoint(papa-bear) {
     position: fixed;
     top: 0;
