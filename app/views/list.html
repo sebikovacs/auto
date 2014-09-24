@@ -1,25 +1,40 @@
-<h2>Lista de intrebari categoria {{model.category | uppercase}}: </h2>
-<a class="btn btn-primary btn-xs btn-reset" ng-click="Reset()">
-  <i class="fa fa-undo"></i>
-  Reseteaza raspunsurile
-</a>
+<div class="row list">
+  <div class="col-md-2 tags-col">
+    <div class="tags">
+      <h4>Filtre:</h4>
+      <ul class="list list-unstyled">
+        <li ng-repeat="tag in model.tags">
+          <label for="{{tag.tag}}">
+            
+            <input type="checkbox" name="" id="{{tag.tag}}" ng-model="tag.selected" /> 
+            {{tag.name}}
 
-
-<div class="search row">
-  <div class="col-md-4">
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Cautare intrebari" ng-model="model.search">
-      <span class="fa fa-search"></span>
+          </label>
+        </li>
+      </ul>
     </div>
+  </div> <!-- col-md-2 -->
+
+  <div class="col-md-10">
+    <div class="row">
+      <h2 class="col-md-6">Lista de intrebari categoria {{model.category | uppercase}}: </h2>
+      
+      <div class="search row col-md-4 col-md-offset-2">
+        <div class="form-group">  
+          <input type="text" class="form-control" placeholder="Cautare intrebari" ng-model="model.search">
+          <span class="fa fa-search"></span>
+        </div>
+      </div>
+    </div>
+
+    <ol class="list questions-list">
+      <li ng-repeat="question in model.questionsList | filter:model.search track by $index">
+        
+        <a href="#/intrebare?cat={{model.category}}&id={{question.id}}" 
+           ng-class="{'corect': question.tags.indexOf('corect') >= 0, 'incorect': question.tags.indexOf('incorect') >= 0, 'seen': question.tags.indexOf('seen') >= 0 }">
+          {{question.q}}
+        </a>
+      </li>
+    </ol>
   </div>
 </div>
-
-<ol>
-  <li ng-repeat="question in model.questionsList | filter:model.search track by $index">
-    
-    <a href="#/intrebare?cat={{model.category}}&id={{question.id}}" 
-       ng-class="{'corect': question.tags.indexOf('corect') >= 0, 'incorect': question.tags.indexOf('incorect') >= 0, 'seen': question.tags.indexOf('seen') >= 0 }">
-      {{question.q}}
-    </a>
-  </li>
-</ol>

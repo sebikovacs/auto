@@ -28,6 +28,7 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
     
     // find question by id in category
     model.question = root.findObjectById(model.questions[category], model.id);
+    console.log(model.question);
 
     // Add a seen tag to the question
     if (model.question.tags.indexOf('seen') < 0) {

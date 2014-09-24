@@ -435,12 +435,13 @@ h2.question {
 /* Questions list
 */
 
-.btn-reset {
-  position: absolute;
-  top: 21px;
-  right: 0;
+.list {
+  height: 100%;
+  position: relative;
 }
 .search {
+  margin-top: 17px;
+
   .form-group {
     position: relative;
 
@@ -454,6 +455,29 @@ h2.question {
   }
 }
 
+.tags-col {
+  height: 100%;
+  padding-left: 0;
+}
+
+.tags {
+  height: 100%;
+  padding: 28px 30px 0 15px;
+  position: fixed;
+  background: #fff;
+  box-shadow: rgba(0,0,0, .2) 2px -1px 3px;
+  max-width: 200px;
+
+  label {
+    font-weight: normal;
+  }
+  .btn-reset {
+    
+  }
+}
+.questions-list {
+  clear: both;
+}
 
 
 

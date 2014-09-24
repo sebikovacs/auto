@@ -7,7 +7,11 @@ app.filter('tagged', function() {
       
       input = input || '';
       tags = tags || '';
-      tags = tags.replace(/\+/g,',').replace(/_/g,' ').split(',');
+
+      if (typeof tags !== 'object') {
+        tags = tags.replace(/\+/g,',').replace(/_/g,' ').split(',');
+      }
+      
 
       angular.forEach(tags, function (tag) {
         
@@ -18,6 +22,7 @@ app.filter('tagged', function() {
             out.push(element);
             
           }
+
         });
       });
 
