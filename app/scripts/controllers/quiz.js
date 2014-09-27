@@ -26,8 +26,8 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       max: 20
     },
     b: {
-      min: 3,
-      max: 6
+      min: 22,
+      max: 26
     },
     c: {
       min: 9,
