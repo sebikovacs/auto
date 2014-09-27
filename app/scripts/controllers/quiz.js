@@ -195,8 +195,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
         if (model.quiz[i].tags.indexOf('corect') < 0 && model.quiz[i].tags.indexOf('incorect') < 0) {
 
           model.question = model.quiz[i];
-          console.log(model.question.v);
-
           break;
 
         }
