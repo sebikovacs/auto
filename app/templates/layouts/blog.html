@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+    Autoquiz - Blog autoquiz
+  </title>
+  <meta name="description" content="Chestionare auto cu toate intrebarile">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
+
+  <!-- build:css({.tmp,app}) /styles/website.css -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-select/bootstrap-select.css">
+  <link rel="stylesheet" href="/styles/website.css">
+  <!-- endbuild -->
+
+  <style>
+    /* Hack to fix number precission issue, until node-sass supports it
+    * number precision should be 10
+    */
+  body,
+  .btn {
+    line-height: 1.42857143 !important;
+  }
+  </style>
+</head>
+<body>
+
+  <!--[if lt IE 9]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  {{> body }}
+
+  <!-- build:js(app) /scripts/plugins.js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) /scripts/website.js -->
+  <script src="/scripts/website.js"></script>
+  <!-- endbuild -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2294103-8', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+</body>
+</html>

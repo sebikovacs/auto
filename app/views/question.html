@@ -1,4 +1,4 @@
-<div class="quiz-question">
+<div class="quiz-question" ng-class="{'hide': model.splash}">
 
   <div class="toolbar" ng-show="model.quizmode">
     <div class="separator">
@@ -86,28 +86,24 @@
       </div>
     </div>
   </div>
-
-  
-
-  <div class="splash" ng-show="model.splash">
-    <h1 ng-if="model.quizValid">Ati fost declarat ADMIS la examenul teoretic</h1>
-    <h1 ng-if="!model.quizValid">Ati fost declarat RESPINS la examenul teoretic</h1>
+</div>
+<div class="splash" ng-show="model.splash">
+  <h1 ng-if="model.quizValid">Ati fost declarat ADMIS la examenul teoretic</h1>
+  <h1 ng-if="!model.quizValid">Ati fost declarat RESPINS la examenul teoretic</h1>
 
 
-    <h3 ng-show="model.statistics.corect.length">Intrebari la care ati raspuns corect</h3>
-    <ul ng-show="model.statistics.corect.length">
-      <li ng-repeat="answer in model.statistics.corect track by $index">
-        <a href="">{{answer.q}}</a>
-      </li>
-    </ul>
+  <h3 ng-show="model.statistics.corect.length">Intrebari la care ati raspuns corect</h3>
+  <ul ng-show="model.statistics.corect.length">
+    <li ng-repeat="answer in model.statistics.corect track by $index">
+      <a href="#/intrebare?cat={{model.category}}&id={{answer.id}}">{{answer.q}}</a>
+    </li>
+  </ul>
 
-    <h3 ng-show="model.statistics.incorect.length">Intrebari la care ati raspuns gresit</h3>
-    <ul ng-show="model.statistics.incorect.length">
-      <li ng-repeat="answer in model.statistics.incorect track by $index">
-        <a href="">{{answer.q}}</a>
-      </li>
-    </ul>
-
-  </div>
+  <h3 ng-show="model.statistics.incorect.length">Intrebari la care ati raspuns gresit</h3>
+  <ul ng-show="model.statistics.incorect.length">
+    <li ng-repeat="answer in model.statistics.incorect track by $index">
+      <a href="#/intrebare?cat={{model.category}}&id={{answer.id}}">{{answer.q}}</a>
+    </li>
+  </ul>
 
 </div>

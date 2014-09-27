@@ -35,7 +35,8 @@ app.factory('data', function($rootScope, $http, $q) {
 
 	// local model
 	var model = {
-		questions: {}
+		questions: {},
+		user: {}
 	};
 
 	var GetQuestions = function () {
@@ -112,6 +113,32 @@ app.factory('data', function($rootScope, $http, $q) {
 		return deferred.promise;
 	};
 	
+	var GetUser = function () {
+		var deferred = $q.defer();
+
+		var user = JSON.parse(storage.getItem('user'));
+
+		if (!$.isEmptyObject(user)) {
+
+			angular.copy(user, model.user);
+			deferred.resolve(model.user);
+
+		} else {
+			deferred.resolve(model.user);
+		}
+
+		return deferred.promise;
+	}
+;
+	var SaveUser = function () {
+		var deferred = $q.defer();
+
+		storage.setItem('user', model.user);
+		deferred.resolve(model.user);
+
+		return deferred.promise;
+	}
+	
 
 	return {
 		env: env,
@@ -120,7 +147,12 @@ app.factory('data', function($rootScope, $http, $q) {
 		GetQuestions: GetQuestions,
 		GetLegis: GetLegis,
 		SaveQuestions: SaveQuestions,
-		RemoveQuestions: RemoveQuestions
+		RemoveQuestions: RemoveQuestions,
+
+		SaveUser: SaveUser,
+		GetUser: GetUser
+
+
 	};
 
 });

@@ -4,15 +4,21 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   // private params
   var model = $scope.model = {};
   var storage = window.localStorage;
-  var category = $routeParams.cat;
+  
   var root = $rootScope.root;
   var moment = window.moment;
 
-  if (!category) {
+  model.questions = data.model.questions;
+  model.user = data.model.user;
+  model.category = $routeParams.cat;
+  
+  if (!model.category) {
     $location.path('/dashboard');
   }
-  
-  model.questions = data.model.questions;
+
+  data.GetUser().then(function () {
+    
+  });
 
   var quizLimits = {
     a: {
@@ -20,8 +26,8 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       max: 20
     },
     b: {
-      min: 22,
-      max: 26
+      min: 3,
+      max: 6
     },
     c: {
       min: 9,
@@ -36,8 +42,8 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   // public params
   model.answers = { a: false, b: false, c: false };
   model.statistics = {
-    total: quizLimits[category].max,
-    left: quizLimits[category].max - 1
+    total: quizLimits[model.category].max,
+    left: quizLimits[model.category].max - 1
   };
   model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
   
@@ -83,11 +89,11 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     var random, question, i = 1, corectTag, incorectTag;
 
     // create a list of random questions for the quiz
-    while (model.quiz.length <= (quizLimits[category].max - 1)) {
+    while (model.quiz.length <= (quizLimits[model.category].max - 1)) {
 
-      random = root.getRandomInt(0, (model.questions[category].length - 1));
+      random = root.getRandomInt(0, (model.questions[model.category].length - 1));
       random = parseInt(random, 10);
-      question = model.questions[category][random];
+      question = model.questions[model.category][random];
 
       corectTag = question.tags.indexOf('corect');
       incorectTag = question.tags.indexOf('incorect');
@@ -113,7 +119,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   // Init
   data.GetQuestions().then(function () {
     
-    if (category) {
+    if (model.category) {
       $scope.StartQuiz();  
     }
     
@@ -168,25 +174,43 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   $scope.NextQuestionInQuiz = function () {
     
+
     // find current question in stack
     var index = 0;
 
     angular.forEach(model.quiz, function (question, i) {
       
       if (question.id === model.question.id) {
+        
         index = i;
         
       }
+
     });
 
-    // find next unanswered question
-    for (var i = index+1; i < model.quiz.length; i++) {
-      if (model.quiz[i].tags.length === 0) {
-        model.question = model.quiz[i];
-        break;
+    if (index + 1 < model.quiz.length) {
+      // find next unanswered question starting from the current question
+      for (var i = index+1; i < model.quiz.length; i++) {
+
+        if (model.quiz[i].tags.indexOf('corect') < 0 && model.quiz[i].tags.indexOf('incorect') < 0) {
+
+          model.question = model.quiz[i];
+          console.log(model.question.v);
+
+          break;
+
+        }
+
       }
+    } else {
+
+      // finish quiz
+      model.splash = true;
+
     }
 
+    
+    
 
     data.SaveQuestions();
 
@@ -195,10 +219,10 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     // Calculate number of questions left in quiz by eliminating answered questions
     model.statistics.corect = taggedFilter(model.quiz, 'corect');
     model.statistics.incorect = taggedFilter(model.quiz, 'incorect');
-    model.statistics.left = model.statistics.total - (model.statistics.corect.length + model.statistics.incorect.length + 1);
+    model.statistics.left = model.statistics.total - (model.statistics.corect.length + model.statistics.incorect.length);
 
-    // Stop quiz if failed answers exceeds limit per category
-    if (model.statistics.incorect.length > (quizLimits[category].max - quizLimits[category].min)) {
+    // Stop quiz if failed answers exceeds limit per model.category
+    if (model.statistics.incorect.length > (quizLimits[model.category].max - quizLimits[model.category].min)) {
       model.splash = true;
     }
 
