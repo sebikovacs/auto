@@ -137,7 +137,7 @@ app.factory('data', function($rootScope, $http, $q) {
 		deferred.resolve(model.user);
 
 		return deferred.promise;
-	}
+	};
 	
 
 	return {
