@@ -17,6 +17,11 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
       name: 'Intrebari gresite',
       tag: 'incorect',
       selected: false
+    },
+    {
+      name: 'Intrebari salvate',
+      tag: 'mark',
+      selected: false
     }
   ];
 

@@ -165,4 +165,15 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
     
   };
 
+  $scope.MarkQuestion = function () {
+    
+    root.markQuestion(model.question);
+    
+  };
+
+  $scope.popover = {
+    title: 'Salveaza intrebarea',
+    content: 'In meniul din stanga, click pe "Categoria ' + category.toUpperCase()+ ' -> Toate intrebarile"'
+  };
+
 });
