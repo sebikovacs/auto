@@ -207,9 +207,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
     }
 
-    
-    
-
     data.SaveQuestions();
 
     $scope.ResetAnsweres();
@@ -260,31 +257,15 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     
   };
 
-  // $scope.StarQuestion = function () {
-  //   var index = model.question.tags.indexOf('starred');
-
-  //   model.starred = !model.starred;
-
-  //   if (index < 0) {
-
-  //     model.question.tags.push('starred');
-
-  //   } else {
-
-  //     model.question.tags.splice(index, 1);
-
-  //   }
-
-  //   $scope.StoreData();
-
-  //   $scope.$emit('$answersUpdate');
-
-  // };
-
-  // $scope.StoreData = function () {
+  $scope.MarkQuestion = function () {
     
-  //   storage.setItem('questions', JSON.stringify(model.questions));
+    root.markQuestion(model.question);
+    
+  };
 
-  // };
+  $scope.popover = {
+    title: 'Salveaza intrebarea',
+    content: 'In meniul din stanga, click pe "Categoria ' + model.category.toUpperCase()+ ' -> Toate intrebarile"'
+  };
 
 });

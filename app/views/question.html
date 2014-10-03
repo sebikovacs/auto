@@ -35,12 +35,17 @@
 
     {{model.question.q}}
     
-    <!-- <span
-      class="fa "
-      ng-click="StarQuestion()"
-       ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-class="{true: 'fa-star', false:'fa-star-o'}[model.starred]"></span> -->
+    <span
+      class="fa"
+      ng-click="MarkQuestion()"
+      ng-class="{'fa-star-o': model.question.tags.indexOf('mark') < 0, 'fa-star': model.question.tags.indexOf('mark') >= 0}"
+      
+      data-placement="right" data-animation="am-flip-x" data-trigger="hover" bs-popover="popover" data-html="true"
+      >
+    </span>
   </h2>
-  
+
+
   <div class="image">
     <img ng-src="images/{{model.question.p}}" ng-show="model.question.p">
   </div>

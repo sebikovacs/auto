@@ -28,7 +28,6 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
     
     // find question by id in category
     model.question = root.findObjectById(model.questions[category], model.id);
-    console.log(model.question);
 
     // Add a seen tag to the question
     if (model.question.tags.indexOf('seen') < 0) {
@@ -38,34 +37,9 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
     }
     
   });
- 
-
-  $scope.StarQuestion = function () {
-    var index = model.question.tags.indexOf('starred');
-
-    model.starred = !model.starred;
-
-    if (index < 0) {
-
-      model.question.tags.push('starred');
-
-    } else {
-
-      model.question.tags.splice(index, 1);
-
-    }
-
-    $scope.StoreDatas();
-
-    $scope.$emit('$answersUpdate');
-
-  };
-
-  
 
   $scope.SetAnswer = function (param) {
     
-
     model.alert = false;
     
     model.answers[param] = !model.answers[param];

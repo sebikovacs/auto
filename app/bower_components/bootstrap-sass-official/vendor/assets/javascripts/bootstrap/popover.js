@@ -14,6 +14,7 @@
   // ===============================
 
   var Popover = function (element, options) {
+    console.log(element);
     this.init('popover', element, options)
   }
 

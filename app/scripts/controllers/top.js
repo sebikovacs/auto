@@ -7,7 +7,7 @@ app.controller('TopCtrl', function($rootScope, $scope, $routeParams, $location, 
   model.user = data.model.user;
 
   data.GetUser().then(function () {
-    //console.log(model.user);
+    // console.log(model.user);
   });
 
   top.shownSubmenu = '';

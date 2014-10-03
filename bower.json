@@ -10,7 +10,11 @@
     "bourbon": "~3.x",
     "momentjs": "~2.5.x",
     "bootstrap-sass-official": "~3.1.1",
-    "bootstrap-select": "~1.5.x"
+    "bootstrap-select": "~1.5.x",
+    "angular-strap": "~2.1.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "angular": "1.2.26"
+  }
 }

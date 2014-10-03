@@ -3,7 +3,9 @@
 
 var app = angular.module('autohack', [
 	'ngRoute',
-	'ngTouch'
+	'ngTouch',
+  'ngSanitize',
+  'mgcrea.ngStrap'
 ]).config(function($routeProvider) {
 	'use strict';
 
@@ -110,4 +112,20 @@ app.run(function($rootScope){
     return nextId;
   };
 
+  root.markQuestion = function (question) {
+    
+    var tags = question.tags;
+    var index = tags.indexOf('mark');
+    
+    if (index < 0) {
+      
+      tags.push('mark');
+
+    } else {
+
+      tags.splice(index, 1);
+
+    }
+    
+  };
 });
