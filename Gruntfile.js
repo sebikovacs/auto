@@ -108,6 +108,14 @@ module.exports = function (grunt) {
         layoutdir: '<%= yeoman.app %>/templates/layouts'
       },
       server: {
+        options: {
+          collections: [{
+            name: 'posted',
+            inflection: 'post',
+            sortby: 'posted',
+            sortorder: 'descending'
+          }]
+        },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/templates',
@@ -116,6 +124,14 @@ module.exports = function (grunt) {
         }]
       },
       dist: {
+        options: {
+          collections: [{
+            name: 'posted',
+            inflection: 'post',
+            sortby: 'posted',
+            sortorder: 'descending'
+          }]
+        },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/templates',

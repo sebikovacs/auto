@@ -1,0 +1,68 @@
+---
+layout: site.html
+---
+
+<div class="page-content container-narrow blog">
+
+  <header class="row header">
+
+    <div class="col-sm-6">
+
+      <a href="/" class="logo-site">
+        <img src="../images/logo.png" alt="AutoQuiz">
+      </a>
+
+    </div>
+
+    <div class="col-sm-6">
+
+      <ul class="list-inline pull-right">
+        <li>
+          <a href="mailto:contact@autoquiz.net">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </header>
+
+  <article class="row">
+
+    <div class="large-12 columns">
+
+      {{#if page.data.posted}}
+        <div class="post-meta">
+          Postat pe data de
+          <time datetime="{{ page.data.posted }}">
+            {{formatDate page.data.posted "%d %B, %Y"}}
+          </time> 
+
+          | 
+
+          <a href="/blog">Inapoi</a>
+        </div>
+      {{/if}}
+
+      {{#if page.data.picture}}
+        <img src="{{ page.data.picture}}" class="post-picture">
+      {{/if}}
+
+      <h1 class='blog'>
+        {{ title }}
+      </h1>
+
+      {{> body}}
+
+    </div>
+
+  </article>
+
+  <footer class="row">
+
+    
+
+  </footer>
+
+</div>
