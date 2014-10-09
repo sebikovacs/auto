@@ -2,35 +2,19 @@
 layout: site.html
 ---
 
-<div class="page-content container-narrow blog">
+<div class="page-content container-narrow">
+  <h1 class="blog-head">
+    <a href="/blog">
+      Blog
+    </a>
+  </h1>
+</div>
 
-  <header class="row header">
+<div class="page-content container-narrow">
 
-    <div class="col-sm-6">
+  <article class="row post">
 
-      <a href="/" class="logo-site">
-        <img src="../images/logo.png" alt="AutoQuiz">
-      </a>
-
-    </div>
-
-    <div class="col-sm-6">
-
-      <ul class="list-inline pull-right">
-        <li>
-          <a href="mailto:contact@autoquiz.net">
-            Contact
-          </a>
-        </li>
-      </ul>
-
-    </div>
-
-  </header>
-
-  <article class="row">
-
-    <div class="large-12 columns">
+    <div class="col-sm-12">
 
       {{#if page.data.posted}}
         <div class="post-meta">
@@ -39,9 +23,11 @@ layout: site.html
             {{formatDate page.data.posted "%d %B, %Y"}}
           </time> 
 
-          | 
+          |
 
-          <a href="/blog">Inapoi</a>
+          <a href="/blog">
+            &laquo; Inapoi
+          </a>
         </div>
       {{/if}}
 
@@ -49,20 +35,18 @@ layout: site.html
         <img src="{{ page.data.picture}}" class="post-picture">
       {{/if}}
 
-      <h1 class='blog'>
-        {{ title }}
-      </h1>
+      {{#if title}}
+
+        <h1 class="post-title">
+          {{ title }}
+        </h1>
+
+      {{/if}}
 
       {{> body}}
 
     </div>
 
   </article>
-
-  <footer class="row">
-
-    
-
-  </footer>
 
 </div>
