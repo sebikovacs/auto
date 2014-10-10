@@ -492,6 +492,46 @@ h2.question {
   clear: both;
 }
 
+/* Dashboard
+*/
+
+.questions-statistics {
+  >div {
+    border-right: 1px solid #ccc;
+    
+    &:last-child {
+      border-right: 0;
+    }
+  }
+  
+  h5 {
+    @include clearfix;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+
+    strong {
+      font-weight: normal;
+    }
+    span {
+      float: right;
+    }
+  }
+
+  dl {
+    @include clearfix;
+
+    dt {
+      float: left;
+      clear: left;
+      font-weight: normal;
+      width: 50%;
+    }
+    dd {
+      float: right;
+    }
+  }
+}
+
 
 
 
