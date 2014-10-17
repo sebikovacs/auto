@@ -6,8 +6,12 @@ var app = angular.module('autohack', [
 	'ngTouch',
   'ngSanitize',
   'mgcrea.ngStrap'
-]).config(function($routeProvider) {
+]).config(function($routeProvider, $locationProvider) {
 	'use strict';
+
+
+  //$locationProvider.html5Mode(true);
+  $locationProvider.hashPrefix('!')
 
 	$routeProvider
 	.when('/dashboard', {

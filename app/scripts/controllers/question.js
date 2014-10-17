@@ -23,6 +23,14 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
   model.id = parseInt($routeParams.id, 10);
 
 
+  // disqus
+  model.disqus = {
+    url: $location.absUrl(),
+    id: model.id
+  };
+
+
+
   // Init
   data.GetQuestions().then(function () {
     

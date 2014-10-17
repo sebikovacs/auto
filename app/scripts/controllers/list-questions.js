@@ -51,6 +51,15 @@ app.controller('ListQuestionsCtrl', function($rootScope, $scope, $routeParams, $
     
     model.questionsList = model.questions[model.category];
 
+    var qp = [];
+
+    angular.forEach(model.questionsList, function (item) {
+      if(item.p) {
+        qp.push(item);
+      }
+      
+    });
+
   });
 
 
