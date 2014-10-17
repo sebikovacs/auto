@@ -100,14 +100,14 @@
   <h3 ng-show="model.statistics.corect.length">Intrebari la care ati raspuns corect</h3>
   <ul ng-show="model.statistics.corect.length">
     <li ng-repeat="answer in model.statistics.corect track by $index">
-      <a href="#/intrebare?cat={{model.category}}&id={{answer.id}}">{{answer.q}}</a>
+      <a href="#!/intrebare?cat={{model.category}}&id={{answer.id}}">{{answer.q}}</a>
     </li>
   </ul>
 
   <h3 ng-show="model.statistics.incorect.length">Intrebari la care ati raspuns gresit</h3>
   <ul ng-show="model.statistics.incorect.length">
     <li ng-repeat="answer in model.statistics.incorect track by $index">
-      <a href="#/intrebare?cat={{model.category}}&id={{answer.id}}">{{answer.q}}</a>
+      <a href="#!/intrebare?cat={{model.category}}&id={{answer.id}}">{{answer.q}}</a>
     </li>
   </ul>
 </div>
