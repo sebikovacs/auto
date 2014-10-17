@@ -11,7 +11,7 @@ var app = angular.module('autohack', [
 
 
   //$locationProvider.html5Mode(true);
-  $locationProvider.hashPrefix('!')
+  $locationProvider.hashPrefix('!');
 
 	$routeProvider
 	.when('/dashboard', {

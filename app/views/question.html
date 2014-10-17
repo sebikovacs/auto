@@ -112,12 +112,15 @@
   </ul>
 </div>
 
-<div class="disqus">
+<div class="disqus" ng-hide="model.quizmode">
   
-  
-  <dir-disqus disqus-shortname="autoquiz"
-           disqus-identifier="{{ model.disqus.id }}"
-           disqus-url="{{ model.disqus.url }}">
-  </dir-disqus>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <dir-disqus disqus-shortname="autoquiz"
+               disqus-identifier="{{ model.disqus.id }}"
+               disqus-url="{{ model.disqus.url }}">
+      </dir-disqus>
+    </div>
+  </div>
 
 </div>
