@@ -8,6 +8,7 @@
 /* Utils
  */
 @import "utils";
+@import "fonts";
 
 /* Bootstrap Theme
  */
@@ -231,4 +232,55 @@ img {
   padding: 0 0 emCalc(20);
 
   font-size: emCalc(14);
+}
+
+.creative {
+  border: 1px solid #ccc;
+  background: #fff;
+  margin: 20px 0;
+  border-radius: 3px;
+  @include clearfix;
+
+  img {
+    max-width: 80%;
+    display: block;
+    margin: 10px auto;
+  }
+  span.caption {
+    float: right;
+    font-size: 12px;
+    color: #333;
+    padding: 0 20px 10px 0;
+    font-style: italic;
+  }
+}
+
+.icon-wrap {
+  border: 11px solid #004FB7;
+  display: block;
+  text-align: center;
+  width: 290px;
+  height: 290px;
+  border-radius: 160px;
+  padding: 61px 0 0 0;
+  color: #004FB7;
+  margin: 50px auto 50px;
+  
+  .auto-icon {
+    font-size: 130px;  
+  }
+
+  span {
+    font-size: 40px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+  }
+}
+
+
+.main-cat {
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  margin: 60px 0 30px 0;
+  padding: 0 0 10px 0;
 }
