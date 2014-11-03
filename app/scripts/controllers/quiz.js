@@ -4,6 +4,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   // private params
   var model = $scope.model = {};
   var storage = window.localStorage;
+  var ga = window.ga;
   
   var root = $rootScope.root;
   var moment = window.moment;
@@ -164,7 +165,16 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       
     }
 
-    //$scope.$emit('$answersUpdate');
+    // google analytics
+
+    var ev = {
+      'hitType': 'event',          // Required.
+      'eventCategory': 'Quiz',   // Required.
+      'eventAction': 'click',      // Required.
+      'eventLabel': 'validate answer',
+      'eventValue': question.id
+    };
+    ga('send', ev);
 
     $scope.NextQuestionInQuiz();
 
