@@ -172,7 +172,7 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       'eventCategory': 'Quiz',   // Required.
       'eventAction': 'click',      // Required.
       'eventLabel': 'validate answer',
-      'eventValue': question.id
+      'eventValue': model.question.id
     };
     ga('send', ev);
 
