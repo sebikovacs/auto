@@ -17,10 +17,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     $location.path('/dashboard');
   }
 
-  data.GetUser().then(function () {
-    
-  });
-
   var quizLimits = {
     a: {
       min: 17,
@@ -31,8 +27,8 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
       max: 26
     },
     c: {
-      min: 9,
-      max: 11
+      min: 22,
+      max: 26
     },
     d: {
       min: 22,
@@ -138,17 +134,18 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
   $scope.ValidateAnswer = function () {
     
     var correctAnswers = model.question.v.split(' '),
-        setAnswers = [], index = 0, corect, incorect, seen;
+        index = 0, corect, incorect, seen;
 
+    model.question.userAnswer = [];
     
     // add users set answers to an array to be compared with the valid ones
     angular.forEach(model.answers, function (value, key) {
       if (value) {
-        setAnswers.push(key);
+        model.question.userAnswer.push(key);
       }
     });
     
-    model.valid = angular.equals(setAnswers.sort(), correctAnswers.sort());
+    model.valid = angular.equals(model.question.userAnswer.sort(), correctAnswers.sort());
     
     /* no need to check if corect/incorect tags are present
        since the questions are selected from a pristine pool
@@ -166,7 +163,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     }
 
     // google analytics
-
     var ev = {
       'hitType': 'event',          // Required.
       'eventCategory': 'Quiz',   // Required.
@@ -184,7 +180,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   $scope.NextQuestionInQuiz = function () {
     
-
     // find current question in stack
     var index = 0;
 
@@ -277,5 +272,51 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     title: 'Salveaza intrebarea',
     content: 'In meniul din stanga, click pe "Categoria ' + model.category.toUpperCase()+ ' -> Toate intrebarile"'
   };
+
+  // when the splash shows up for whatever reason
+  // start the wrong questions viewer
+  $scope.$watch('model.splash', function () {
+    if (model.splash === true) {
+      
+      var answeredQuestions = [];
+      var quiz = {};
+
+      angular.forEach(model.quiz, function (question) {
+        
+        // go through all questions at the end of the quiz and 
+        // make the valid questions an array  
+        if (typeof question.v === 'string') {
+
+          question.v = question.v.split(' ');
+        } 
+        
+
+        // create an array of questions that the users has answered in the quiz
+        if (question.tags.length && (question.tags.indexOf('corect') || question.tags.indexOf('incorect'))) {
+
+          answeredQuestions.push(question);
+
+        }
+
+      });
+
+      // add a timestamp to the quiz
+      quiz.time = model.quiz.time =  new Date().getTime();
+
+      // add the answered questions before the quiz was over
+      quiz.questions = answeredQuestions;
+
+      // save the quiz in the users profile
+      if (!model.user.quizes) {
+        model.user.quizes = [];
+      }
+      
+      model.user.quizes.push(quiz);
+
+      data.SaveUser();
+      
+    }
+
+  });
 
 });

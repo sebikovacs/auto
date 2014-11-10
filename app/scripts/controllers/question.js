@@ -8,9 +8,6 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
   var questionId = $routeParams.id;
   var root = $rootScope.root;
   
-
-
-
   // public params
   model.quizmode = ($location.path().indexOf('/quiz') === 0) ? true : false;
   model.answers = { a: false, b: false, c: false };
@@ -28,8 +25,6 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
     url: $location.absUrl(),
     id: model.id
   };
-
-
 
   // Init
   data.GetQuestions().then(function () {
@@ -65,25 +60,27 @@ app.controller('QuestionCtrl', function($rootScope, $scope, $routeParams, $locat
   $scope.ValidateAnswer = function () {
     
     var correctAnswers = model.question.v.split(' '),
-        setAnswers = [], index = 0, corect, incorect, seen;
+        index = 0, corect, incorect, seen;
+    
     model.valid = '';
+    model.question.userAnswer = [];
         
     // add users set answers to an array to be compared with the valid ones
-    
     angular.forEach(model.answers, function (value, key) {
       if (value) {
 
-        setAnswers.push(key);
+        model.question.userAnswer.push(key);
+
       }
     });
 
-    if (setAnswers.length === 0) {
+    if (model.question.userAnswer.length === 0) {
       
       model.alert = true;
 
     } else {
 
-      model.valid = angular.equals(setAnswers, correctAnswers.sort());
+      model.valid = angular.equals(model.question.userAnswer, correctAnswers.sort());
       
       // Clean up tags of correct and incorect;
       removeStringsFromArray(model.question.tags, 'corect');

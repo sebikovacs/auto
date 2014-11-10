@@ -133,7 +133,7 @@ app.factory('data', function($rootScope, $http, $q) {
 	var SaveUser = function () {
 		var deferred = $q.defer();
 
-		storage.setItem('user', model.user);
+		storage.setItem('user', JSON.stringify(model.user));
 		deferred.resolve(model.user);
 
 		return deferred.promise;
