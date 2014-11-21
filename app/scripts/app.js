@@ -39,6 +39,11 @@ var app = angular.module('autohack', [
 		controller: 'LegisCtrl',
 		reloadOnSearch: false
 	})
+  .when('/quiz-review/:timestamp', {
+    templateUrl: 'views/quiz-review.html',
+    controller: 'QuizReviewCtrl',
+    reloadOnSearch: false
+  })
 	.otherwise({
 		redirectTo: '/dashboard'
 	});

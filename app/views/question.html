@@ -112,26 +112,22 @@
 
 
   <div class="row">
-    <div class="col-md-6" ng-show="model.statistics.corect.length">
-      <h3>Intrebari la care ati raspuns corect</h3>
-      <ul>
+    <div class="col-md-6">
+      <h3 ng-show="model.statistics.corect.length">Intrebari la care ati raspuns corect</h3>
+      <ul ng-show="model.statistics.corect.length">
         <li ng-repeat="answer in model.statistics.corect track by $index">
           <a href="#!/intrebare?cat={{model.category}}&id={{answer.id}}">{{answer.q}}</a>
 
         </li>
       </ul>
-    </div>
-    <div class="col-md-6"  ng-show="model.statistics.incorect.length">
-      <h3>Intrebari la care ati raspuns gresit</h3>
-      <ul>
+    
+      <h3 ng-show="model.statistics.incorect.length">Intrebari la care ati raspuns gresit</h3>
+      <ul ng-show="model.statistics.incorect.length">
         <li ng-repeat="answer in model.statistics.incorect track by $index">
           <a href="#!/intrebare?cat={{model.category}}&id={{answer.id}}&time={{model.quiz.time}}">{{answer.q}}</a>
-          {{answer}}
         </li>
       </ul>
     </div>
   </div>
-
-  
 </div>
 

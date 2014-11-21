@@ -1,0 +1,9 @@
+<p><strong>{{model.question.q}}</strong></p>
+
+<ul class="list-unstyled">
+	<li ng-class="{'corect':model.question.v.indexOf('a') >= 0, 'user-answer':model.question.userAnswer.indexOf('a') >= 0 }"><strong>A.</strong> {{model.question.a}}</li>
+	<li ng-class="{'corect':model.question.v.indexOf('b') >= 0, 'user-answer':model.question.userAnswer.indexOf('b') >= 0}"><strong>B.</strong> {{model.question.b}}</li>
+	<li ng-class="{'corect':model.question.v.indexOf('c') >= 0, 'user-answer':model.question.userAnswer.indexOf('c') >= 0}"><strong>C.</strong> {{model.question.c}}</li>
+</ul>
+<a href="" ng-click="Go(-1)">prev</a>
+<a href="" ng-click="Go(1)">next</a>
