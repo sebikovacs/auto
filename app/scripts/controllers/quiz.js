@@ -278,4 +278,8 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
     content: 'In meniul din stanga, click pe "Categoria ' + model.category.toUpperCase()+ ' -> Toate intrebarile"'
   };
 
+  $scope.NewQuiz = function () {
+    window.location.reload();
+  }
+
 });
