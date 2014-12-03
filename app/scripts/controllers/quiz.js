@@ -280,6 +280,6 @@ app.controller('QuizCtrl', function($rootScope, $scope, $routeParams, $location,
 
   $scope.NewQuiz = function () {
     window.location.reload();
-  }
+  };
 
 });
