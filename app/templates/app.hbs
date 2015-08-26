@@ -1,0 +1,125 @@
+---
+layout: app.html
+---
+<div class="row">
+  <div class="col-md-2 sidebar">
+
+    <a href="/" class="logo">
+      <img src="images/logo-mono.png">
+    </a>
+
+    <ul class="nav nav-pills nav-stacked main-nav main-nav-\{{ top.shownSubmenu }}">
+      <li>
+        <a href="#!/">
+          Acasă
+
+          <i class="fa fa-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="cat-a">
+
+        <a ng-click="top.ToggleSubmenu('cat-a')">
+          Categoria <span class="cat-symbol">A</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#!/quiz?cat=a">Chestionar</a>
+          </li>
+          <li>
+            <a href="#!/toate-intrebarile?cat=a">Toate intrebarile</a>
+          </li>
+        </ul>
+
+      </li>
+      <li class="cat-b">
+
+        <a ng-click="top.ToggleSubmenu('cat-b')">
+          Categoria
+          <span class="cat-symbol">B</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#!/quiz?cat=b">Chestionar</a>
+          </li>
+          <li>
+            <a href="#!/toate-intrebarile?cat=b">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      <li class="cat-c">
+
+        <a ng-click="top.ToggleSubmenu('cat-c')">
+          Categoria
+          <span class="cat-symbol">C</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#!/quiz?cat=c">Chestionar</a>
+          </li>
+          <li>
+            <a href="#!/toate-intrebarile?cat=c">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      <li class="cat-d">
+
+        <a ng-click="top.ToggleSubmenu('cat-d')">
+          Categoria
+          <span class="cat-symbol">D</span>
+
+          <i class="fa fa-angle-down"></i>
+        </a>
+
+        <ul class="sub-nav">
+          <li>
+            <a href="#!/quiz?cat=d">Chestionar</a>
+          </li>
+          <li>
+            <a href="#!/toate-intrebarile?cat=d">Toate intrebarile</a>
+          </li>
+        </ul>
+      </li>
+      
+      <li>
+        <a href="#!/legislatie-rutiera">
+          Legislatia Rutiera
+
+          <i class="fa fa-book menu-icon"></i>
+        </a>
+      </li>
+      <li>
+        <button class="btn btn-primary btn-reset" ng-click="Reset()">
+          <i class="fa fa-undo"></i>
+
+          Reseteaza raspunsurile
+        </button>
+      </li>
+
+    </ul>
+
+    <!-- <h2 class="nav-title">Filtre</h2>
+
+    <ul class="nav nav-pills nav-stacked filters">
+
+      <li ng-repeat="tag in tags">
+
+        <a href="" ng-class="{true: 'selected', false: ''}[top.model.label.indexOf(tag) > 0]" ng-click="SetLabel(tag)">
+          \{{tag}}
+        </a>
+
+      </li>
+    </ul> -->
+  </div>
+
+  <div ng-view class="app-content col-md-10"></div>
+</div>
+
